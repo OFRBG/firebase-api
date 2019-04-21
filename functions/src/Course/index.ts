@@ -6,6 +6,7 @@ import {
   GraphQLList,
   GraphQLString,
 } from 'graphql';
+import {unset} from 'lodash';
 
 const FETCH_LIMIT = 100;
 
@@ -40,11 +41,11 @@ const getCourses = {
   resolve: (root: Object, args: any) => _getCourses(args),
 };
 
-const addCourse = {
+const setCourse = {
   type: GraphQLString,
   description: 'Add a new course',
   args: courseFields,
-  resolve: (root: Object, args: Object) => _addCourse(args),
+  resolve: (root: Object, args: Object) => _setCourse(args),
 };
 
 const deleteCourse = {
@@ -123,16 +124,24 @@ const _getCourseById = async (
 };
 
 /**
- * Add a new course to Firestore
+ * Set merge a course to Firestore
+ * If no id is specified, add new document
  *
  * @param {Object} args Course attributes to insert
  * @returns {String} id of the new document
  */
-const _addCourse = async function(args: Object) {
+const _setCourse = async function(args: any) {
   const db = admin.firestore().collection('courses');
-  const addedCourse = await db.add({...args});
+  if (args.id) {
+    const customId = args.id;
+    unset(args, 'id');
 
-  return addedCourse.id;
+    await db.doc(customId).set({...args}, {merge: true});
+    return customId;
+  } else {
+    const addedCourse = await db.add({...args});
+    return addedCourse.id;
+  }
 };
 
 /**
@@ -155,5 +164,5 @@ const _deleteCourse = async function(args: {id?: string}) {
 export const Course = {
   type: CourseType,
   fields: courseFields,
-  resolvers: {getCourses, addCourse, deleteCourse},
+  resolvers: {getCourses, setCourse, deleteCourse},
 };

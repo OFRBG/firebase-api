@@ -20,7 +20,7 @@ const QueryType = new GraphQLObjectType({
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    addCourse: Course.resolvers.addCourse,
+    setCourse: Course.resolvers.setCourse,
     deleteCourse: Course.resolvers.deleteCourse,
   }),
 });
