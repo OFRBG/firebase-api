@@ -5,6 +5,7 @@ import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import {GraphQLSchema, GraphQLObjectType} from 'graphql';
 import {Course} from './Course';
+import {authenticateUser} from './auth';
 
 admin.initializeApp();
 
@@ -31,10 +32,17 @@ const schema = new GraphQLSchema({
   types: [Course.type],
 });
 
+app.use(authenticateUser);
+
 app.use(
-  graphqlHTTP({
-    schema: schema,
-    graphiql: true,
+  graphqlHTTP(req => {
+    return {
+      schema: schema,
+      context: {
+        currentUser: req.app.locals.currentUser,
+      },
+      graphiql: true,
+    };
   }),
 );
 

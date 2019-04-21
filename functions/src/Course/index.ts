@@ -38,14 +38,15 @@ const CourseType = new GraphQLObjectType({
 const getCourses = {
   type: new GraphQLList(CourseType),
   args: courseFields,
-  resolve: (root: Object, args: any) => _getCourses(args),
+  resolve: (root: Object, args: any, context: any) =>
+    _getCourses(args, context),
 };
 
 const setCourse = {
   type: GraphQLString,
   description: 'Add a new course',
   args: courseFields,
-  resolve: (root: Object, args: Object) => _setCourse(args),
+  resolve: (root: Object, args: any, context: any) => _setCourse(args, context),
 };
 
 const deleteCourse = {
@@ -56,7 +57,8 @@ const deleteCourse = {
       type: GraphQLString,
     },
   },
-  resolve: (root: Object, args: Object) => _deleteCourse(args),
+  resolve: (root: Object, args: any, context: any) =>
+    _deleteCourse(args, context),
 };
 
 /**
@@ -95,7 +97,8 @@ const buildDocument = (doc: FirebaseFirestore.DocumentSnapshot) => {
  * @param {Object} args Values used to filter the query
  * @returns {Object[]} Fetched documents after filtering
  */
-const _getCourses = async function(args: any) {
+const _getCourses = async function(args: any, context: any) {
+  console.log(context);
   const db = admin.firestore().collection('courses');
 
   if (args.id) {
@@ -130,7 +133,7 @@ const _getCourseById = async (
  * @param {Object} args Course attributes to insert
  * @returns {String} id of the new document
  */
-const _setCourse = async function(args: any) {
+const _setCourse = async function(args: any, context: any) {
   const db = admin.firestore().collection('courses');
   if (args.id) {
     const customId = args.id;
@@ -150,7 +153,7 @@ const _setCourse = async function(args: any) {
  * @param {Object} args Object with the id of the document to delete
  * @returns {boolean} returns true for a successful operation
  */
-const _deleteCourse = async function(args: {id?: string}) {
+const _deleteCourse = async function(args: any, context: any) {
   if (!args.id) {
     throw new Error(`No course ID provided!`);
   }
