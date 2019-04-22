@@ -25,7 +25,7 @@ const courseFields = {
   },
   id: {
     type: GraphQLString,
-    description: 'Fetching by ID ignores the other filter parameters',
+    description: 'Fetching by id ignores the other filter parameters',
   },
 };
 
@@ -98,7 +98,6 @@ const buildDocument = (doc: FirebaseFirestore.DocumentSnapshot) => {
  * @returns {Object[]} Fetched documents after filtering
  */
 const _getCourses = async function(args: any, context: any) {
-  console.log(context);
   const db = admin.firestore().collection('courses');
 
   if (args.id) {
