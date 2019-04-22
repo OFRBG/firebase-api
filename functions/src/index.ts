@@ -7,8 +7,13 @@ import {addNewUserToFirestore} from './userHandlers';
 
 admin.initializeApp();
 
-export const graphql = functions.https.onRequest(api);
-export const handlers = functions.https.onRequest(httpsHandlers);
-export const registerUser = functions.auth
+const functionWithSettings = functions.runWith({
+  timeoutSeconds: 2,
+  memory: '128MB',
+});
+
+export const graphql = functionWithSettings.https.onRequest(api);
+export const handlers = functionWithSettings.https.onRequest(httpsHandlers);
+export const registerUser = functionWithSettings.auth
   .user()
   .onCreate(addNewUserToFirestore);

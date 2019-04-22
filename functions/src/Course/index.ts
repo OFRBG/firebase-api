@@ -35,32 +35,6 @@ const CourseType = new GraphQLObjectType({
   fields: () => courseFields,
 });
 
-const getCourses = {
-  type: new GraphQLList(CourseType),
-  args: courseFields,
-  resolve: (root: Object, args: any, context: any) =>
-    _getCourses(args, context),
-};
-
-const setCourse = {
-  type: GraphQLString,
-  description: 'Add a new course',
-  args: courseFields,
-  resolve: (root: Object, args: any, context: any) => _setCourse(args, context),
-};
-
-const deleteCourse = {
-  type: GraphQLBoolean,
-  description: 'Delete a course',
-  args: {
-    id: {
-      type: GraphQLString,
-    },
-  },
-  resolve: (root: Object, args: any, context: any) =>
-    _deleteCourse(args, context),
-};
-
 /**
  * Apply Firestore filters and return the built Query
  *
@@ -92,6 +66,21 @@ const buildDocument = (doc: FirebaseFirestore.DocumentSnapshot) => {
 };
 
 /**
+ * Fetch a document by id
+ *
+ * @param {CollectionReference} db Collection reference from Firestore
+ * @param {String} id id to look up
+ * @returns {Object[]} Fetched document
+ */
+const _getCourseById = async (
+  db: FirebaseFirestore.CollectionReference,
+  id: string,
+) => {
+  const document = await db.doc(id).get();
+  return [buildDocument(document)];
+};
+
+/**
  * Fetch documents after applying provided filters
  *
  * @param {Object} args Values used to filter the query
@@ -108,21 +97,6 @@ const _getCourses = async function(args: any, context: any) {
   const fetchedData = await query.get();
 
   return fetchedData.docs.map(buildDocument);
-};
-
-/**
- * Fetch a document by id
- *
- * @param {CollectionReference} db Collection reference from Firestore
- * @param {String} id id to look up
- * @returns {Object[]} Fetched document
- */
-const _getCourseById = async (
-  db: FirebaseFirestore.CollectionReference,
-  id: string,
-) => {
-  const document = await db.doc(id).get();
-  return [buildDocument(document)];
 };
 
 /**
@@ -161,6 +135,32 @@ const _deleteCourse = async function(args: any, context: any) {
   await db.doc(args.id).delete();
 
   return true;
+};
+
+const getCourses = {
+  type: new GraphQLList(CourseType),
+  args: courseFields,
+  resolve: (root: Object, args: any, context: any) =>
+    _getCourses(args, context),
+};
+
+const setCourse = {
+  type: GraphQLString,
+  description: 'Add a new course',
+  args: courseFields,
+  resolve: (root: Object, args: any, context: any) => _setCourse(args, context),
+};
+
+const deleteCourse = {
+  type: GraphQLBoolean,
+  description: 'Delete a course',
+  args: {
+    id: {
+      type: GraphQLString,
+    },
+  },
+  resolve: (root: Object, args: any, context: any) =>
+    _deleteCourse(args, context),
 };
 
 export const Course = {
