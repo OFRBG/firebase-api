@@ -5,7 +5,7 @@ import {Response, Request, NextFunction} from 'express';
 /**
  * Authenticate the user and set the id in app.locals
  */
-export const authenticateUser = async (
+const authenticateUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -30,3 +30,5 @@ export const authenticateUser = async (
     next();
   }
 };
+
+export {authenticateUser};

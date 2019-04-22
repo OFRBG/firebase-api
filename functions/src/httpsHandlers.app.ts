@@ -13,8 +13,14 @@ app.post('/newAdmin', (req, res) => {
   setAdminStatus(app.locals.currentUser, req.body.newAdminID, res);
 });
 
+/**
+ * Set a user as an admin
+ *
+ * @param {Object} currentUser User sending the request
+ * @param {String} newAdminId
+ */
 const setAdminStatus = (
-  currentUser: {uid?: string, isAdmin?: string},
+  currentUser: {isAdmin?: string} | undefined,
   newAdminId: string,
   res: Response,
 ) => {
