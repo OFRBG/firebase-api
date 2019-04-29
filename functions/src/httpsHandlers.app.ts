@@ -12,27 +12,52 @@ const app = express();
  * @param {String} newAdminId
  */
 const setAdminStatus = async (
-  currentUser: {isAdmin?: string} | undefined,
-  newAdminId: string,
+  currentUser: {isAdmin?: string, isOwner?: string} | undefined,
+  newUserRoles: {id: string, roles: {isAdmin?: boolean, isMaster?: boolean}},
   res: express.Response,
 ) => {
-  if (currentUser && currentUser.isAdmin) {
-    await admin.auth().setCustomUserClaims(newAdminId, {isAdmin: true});
-    res.status(200).json(currentUser);
+  if (currentUser && currentUser.isOwner) {
+    await admin.auth().setCustomUserClaims(newUserRoles.id, newUserRoles.roles);
+    await admin
+      .firestore()
+      .collection('users')
+      .doc(newUserRoles.id)
+      .set(newUserRoles.roles);
+
+    res.status(200).json(newUserRoles);
   } else {
-    res.status(403).send();
+    res.status(401).send();
   }
+};
+
+/**
+ * Set the app owner as the seed authority
+ *
+ * @param {Object} currentUser User sending the request
+ */
+const setOwnerStatus = async (ownerId: string, res: express.Response) => {
+  await admin.auth().setCustomUserClaims(ownerId, {isOwner: true});
+  res.status(200).send();
 };
 
 app.use(authenticateUser);
 
-app.post('/newAdmin', async (req, res) => {
-  console.log(app.locals.currentUser);
-  await setAdminStatus(
-    app.locals.currentUser,
-    req.body.newAdminID,
-    res,
-  ).catch(e => {
+app.post('/init', async (req, res) => {
+  await setOwnerStatus('jRiKVS27LqcpZZPTSTR3FD40m7f2', res).catch(e => {
+    res.status(500).json(e);
+  });
+});
+
+app.post('/setRoles', async (req, res) => {
+  const newUserRoles = {
+    id: req.body.id,
+    roles: {
+      isAdmin: req.body.setAdmin === '1',
+      isMaster: req.body.setMaster === '1',
+    },
+  };
+
+  await setAdminStatus(app.locals.currentUser, newUserRoles, res).catch(e => {
     res.status(500).json(e);
   });
 });

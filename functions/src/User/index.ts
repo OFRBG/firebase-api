@@ -6,22 +6,22 @@ import {
   GraphQLList,
   GraphQLString,
 } from 'graphql';
-import {get, unset} from 'lodash';
+import {unset} from 'lodash';
 
 const FETCH_LIMIT = 100;
 
-const courseFields = {
+const userFields = {
   language: {
     type: GraphQLString,
-    description: 'Course content language',
+    description: 'User content language',
   },
   name: {
     type: GraphQLString,
-    description: 'Course name or title',
+    description: 'User name or title',
   },
   level: {
     type: GraphQLString,
-    description: 'Course CEFR level',
+    description: 'User CEFR level',
   },
   id: {
     type: GraphQLString,
@@ -29,17 +29,11 @@ const courseFields = {
   },
 };
 
-const CourseType = new GraphQLObjectType({
-  name: 'course',
-  description: 'Language course information',
-  fields: () => courseFields,
+const UserType = new GraphQLObjectType({
+  name: 'user',
+  description: 'Language user information',
+  fields: () => userFields,
 });
-
-const requireAuth = (currentUser: any) => {
-  if (!get(currentUser, 'isAdmin')) {
-    throw new Error(`Operation not allowed`);
-  }
-};
 
 /**
  * Apply Firestore filters and return the built Query
@@ -67,7 +61,7 @@ const applyFilters = (
  * @param {DocumentSnapshot} doc Fetched document
  * @returns {Object} Document data with its id
  */
-const appendId = (doc: FirebaseFirestore.DocumentSnapshot) => {
+const buildDocument = (doc: FirebaseFirestore.DocumentSnapshot) => {
   return {...doc.data(), id: doc.id};
 };
 
@@ -78,12 +72,12 @@ const appendId = (doc: FirebaseFirestore.DocumentSnapshot) => {
  * @param {String} id id to look up
  * @returns {Object[]} Fetched document
  */
-const _getCourseById = async (
+const _getUserById = async (
   db: FirebaseFirestore.CollectionReference,
   id: string,
 ) => {
   const document = await db.doc(id).get();
-  return [appendId(document)];
+  return [buildDocument(document)];
 };
 
 /**
@@ -92,30 +86,28 @@ const _getCourseById = async (
  * @param {Object} args Values used to filter the query
  * @returns {Object[]} Fetched documents after filtering
  */
-const _getCourses = async function(args: any, context: any) {
-  const db = admin.firestore().collection('courses');
+const _getUsers = async function(args: any, context: any) {
+  const db = admin.firestore().collection('users');
 
   if (args.id) {
-    return _getCourseById(db, args.id);
+    return _getUserById(db, args.id);
   }
 
   const query = applyFilters(db, args);
   const fetchedData = await query.get();
 
-  return fetchedData.docs.map(appendId);
+  return fetchedData.docs.map(buildDocument);
 };
 
 /**
- * Set merge a course to Firestore
+ * Set merge a user to Firestore
  * If no id is specified, add new document
  *
- * @param {Object} args Course attributes to insert
+ * @param {Object} args User attributes to insert
  * @returns {String} id of the new document
  */
-const _setCourse = async function(args: any, context: any) {
-  requireAuth(context.currentUser);
-
-  const db = admin.firestore().collection('courses');
+const _setUser = async function(args: any, context: any) {
+  const db = admin.firestore().collection('users');
   if (args.id) {
     const customId = args.id;
     unset(args, 'id');
@@ -123,62 +115,55 @@ const _setCourse = async function(args: any, context: any) {
     await db.doc(customId).set({...args}, {merge: true});
     return customId;
   } else {
-    const addedCourse = await db.add({...args});
-    return addedCourse.id;
+    const addedUser = await db.add({...args});
+    return addedUser.id;
   }
 };
 
 /**
- * Delete a course from Firestore
+ * Delete a user from Firestore
  *
  * @param {Object} args Object with the id of the document to delete
  * @returns {boolean} returns true for a successful operation
  */
-const _deleteCourse = async function(args: any, context: any) {
-  requireAuth(context.currentUser);
-
+const _deleteUser = async function(args: any, context: any) {
   if (!args.id) {
-    throw new Error(`No course ID provided!`);
+    throw new Error(`No user ID provided!`);
   }
 
-  const db = admin.firestore().collection('courses');
-
-  const docReference = db.doc(args.id);
-  const doc = await docReference.get();
-
+  const db = admin.firestore().collection('users');
   await db.doc(args.id).delete();
 
-  return doc;
+  return true;
 };
 
-const getCourses = {
-  type: new GraphQLList(CourseType),
-  args: courseFields,
-  resolve: (root: Object, args: any, context: any) =>
-    _getCourses(args, context),
+const getUsers = {
+  type: new GraphQLList(UserType),
+  args: userFields,
+  resolve: (root: Object, args: any, context: any) => _getUsers(args, context),
 };
 
-const setCourse = {
+const setUser = {
   type: GraphQLString,
-  description: 'Add a new course',
-  args: courseFields,
-  resolve: (root: Object, args: any, context: any) => _setCourse(args, context),
+  description: 'Add a new user',
+  args: userFields,
+  resolve: (root: Object, args: any, context: any) => _setUser(args, context),
 };
 
-const deleteCourse = {
+const deleteUser = {
   type: GraphQLBoolean,
-  description: 'Delete a course',
+  description: 'Delete a user',
   args: {
     id: {
       type: GraphQLString,
     },
   },
   resolve: (root: Object, args: any, context: any) =>
-    _deleteCourse(args, context),
+    _deleteUser(args, context),
 };
 
-export const Course = {
-  type: CourseType,
-  fields: courseFields,
-  resolvers: {getCourses, setCourse, deleteCourse},
+export const User = {
+  type: UserType,
+  fields: userFields,
+  resolvers: {getUsers, setUser, deleteUser},
 };

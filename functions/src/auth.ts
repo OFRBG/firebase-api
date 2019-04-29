@@ -20,6 +20,7 @@ const authenticateUser = async (
       req.app.locals.currentUser = {
         uid: claims.uid || '',
         isAdmin: claims.isAdmin || false,
+        isOwner: claims.isOwner || false,
       };
 
       next();
