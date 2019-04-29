@@ -1,7 +1,7 @@
 // @format
 import * as admin from 'firebase-admin';
 import * as express from 'express';
-import {authenticateUser} from './auth';
+import {authenticateUser} from '../utils/auth';
 
 const app = express();
 

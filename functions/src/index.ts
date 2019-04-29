@@ -1,9 +1,9 @@
 // @format
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import {api} from './graphql.app';
-import {httpsHandlers} from './httpsHandlers.app';
-import {addNewUserToFirestore} from './userHandlers';
+import {api} from './App/graphql.app';
+import {httpsHandlers} from './App/httpsHandlers.app';
+import {addNewUserToFirestore} from './Event/userHandlers';
 
 admin.initializeApp();
 

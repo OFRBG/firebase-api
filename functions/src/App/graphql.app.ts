@@ -2,8 +2,8 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import {GraphQLSchema, GraphQLObjectType} from 'graphql';
-import {Course} from './Course';
-import {authenticateUser} from './auth';
+import {Course} from '../Types/Course';
+import {authenticateUser} from '../utils/auth';
 
 const app = express();
 
