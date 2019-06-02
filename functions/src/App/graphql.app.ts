@@ -13,7 +13,6 @@ const QueryType = new GraphQLObjectType({
   fields: () => ({
     dish: Dish.resolvers.getDish,
     ingredient: Ingredient.resolvers.getIngredient,
-    setIngredient: Ingredient.resolvers.setIngredient,
   }),
 });
 
