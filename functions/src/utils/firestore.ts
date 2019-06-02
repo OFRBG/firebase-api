@@ -10,3 +10,12 @@ export const fetchFromCollection = async (collection: string, args: any) => {
 
   return fetchedData.docs.map(appendId);
 };
+
+export const addToCollection = async (collection: string, args: any) => {
+  const db = admin.firestore().collection(collection);
+
+  const insertedDocRef = await db.add(args);
+  const insertedDoc = await insertedDocRef.get();
+
+  return appendId(insertedDoc);
+};

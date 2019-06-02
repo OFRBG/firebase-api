@@ -13,11 +13,20 @@ const QueryType = new GraphQLObjectType({
   fields: () => ({
     dish: Dish.resolvers.getDish,
     ingredient: Ingredient.resolvers.getIngredient,
+    setIngredient: Ingredient.resolvers.setIngredient,
+  }),
+});
+
+const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    setIngredient: Ingredient.resolvers.setIngredient,
   }),
 });
 
 const schema = new GraphQLSchema({
   query: QueryType,
+  mutation: MutationType,
 });
 
 app.use(

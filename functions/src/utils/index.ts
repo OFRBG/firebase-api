@@ -1,8 +1,9 @@
+// @format
 import {get} from 'lodash';
 
 const FETCH_LIMIT = 100;
 
-export {fetchFromCollection} from './firestore';
+export * from './firestore';
 
 export const requireAuth = (currentUser: any) => {
   if (!get(currentUser, 'isAdmin')) {
