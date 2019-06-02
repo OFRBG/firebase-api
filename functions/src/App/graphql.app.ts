@@ -2,7 +2,8 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import {GraphQLSchema, GraphQLObjectType} from 'graphql';
-import {Course} from '../Types/Course';
+
+import {Dish, Ingredient} from '../Types';
 import {authenticateUser} from '../utils/auth';
 
 const app = express();
@@ -10,22 +11,13 @@ const app = express();
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    course: Course.resolvers.getCourses,
-  }),
-});
-
-const MutationType = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: () => ({
-    setCourse: Course.resolvers.setCourse,
-    deleteCourse: Course.resolvers.deleteCourse,
+    dish: Dish.resolvers.getDish,
+    ingredient: Ingredient.resolvers.getIngredient,
   }),
 });
 
 const schema = new GraphQLSchema({
   query: QueryType,
-  mutation: MutationType,
-  types: [Course.type],
 });
 
 app.use(
