@@ -1,10 +1,47 @@
-# 🔥 firebase-api 🔥
+#  firebase-api
 
 ---
 
-<p align="center"><b>PoC GCP GraphQL API</b></p>
+<p align="center">
+  <img height="22" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+  <img height="15" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+  <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+  <b>Firestore + GraphQL</b>
+  <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+  <img height="15" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+  <img height="22" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+</p>
 
----
+<p align="center">
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+</p>
 
 ## App
 The main file contains the GraphQL API building. It imports the types built under `Types/` and exposes them through queries.
@@ -89,7 +126,36 @@ import * as resolvers from './resolvers';
 export const A = {fields, resolvers, model};
 ```
 
----
+<p align="center">
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+</p>
 
 ### `fields/index.ts`
 
@@ -127,7 +193,36 @@ export const getters = {
 
 ```
 
----
+<p align="center">
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+</p>
 
 ### `resolvers/`
 #### `index.ts`
@@ -187,7 +282,36 @@ export const SetAInput = new GraphQLInputObjectType({
 });
 ```
 
----
+<p align="center">
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+</p>
 
 ### `type`
 The type represents the GraphQL and internal shape of the object.
