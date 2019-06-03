@@ -2,9 +2,60 @@
 
 ---
 
-PoC GCP GraphQL API
+<p align="center"><b>PoC GCP GraphQL API</b></p>
 
 ---
+
+## App
+The main file contains the GraphQL API building. It imports the types built under `Types/` and exposes them through queries.
+The `Query` type exposes resolvers linked to reading from the database. The `Mutation` type exposes the resolvers linked to the other operations. At this level, we only want to import the types and not implement any other logic.
+
+> Note: The structure design to expose the types is still under developement.
+
+### `index.ts`
+
+```ts
+import * as express from 'express';
+import * as graphqlHTTP from 'express-graphql';
+import {GraphQLSchema, GraphQLObjectType} from 'graphql';
+
+import {A, B} from '../Types';
+
+const app = express();
+
+const QueryType = new GraphQLObjectType({
+  name: 'Query',
+  fields: () => ({
+    a: A.resolvers.getA,
+    b: B.resolvers.getB,
+  }),
+});
+
+const MutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    setA: A.resolvers.setA,
+    setB: B.resolvers.setB
+  }),
+});
+
+const schema = new GraphQLSchema({
+  query: QueryType,
+  mutation: MutationType,
+  types: [A.model, B.model],
+});
+
+app.use(
+  graphqlHTTP(req => {
+    return {
+      schema: schema,
+      graphiql: true,
+    };
+  }),
+);
+
+export const api = app;
+```
 
 ## Types
 
