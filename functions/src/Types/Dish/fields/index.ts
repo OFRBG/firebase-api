@@ -1,16 +1,34 @@
 // @format
-import {GraphQLString} from 'graphql';
+import {GraphQLString, GraphQLList} from 'graphql';
 
 import {Ingredient} from '../../../Types';
 
-export const id = {
+const id = {
   type: GraphQLString,
   description: 'Dish ID',
 };
 
-export const name = {
+const name = {
   type: GraphQLString,
   description: 'Dish name',
 };
 
-export const ingredients = Ingredient.resolvers.getIngredient;
+const ingredients = {
+  setter: {
+    type: GraphQLList(GraphQLString),
+    description: 'Ingredients used',
+  },
+  getter: Ingredient.resolvers.getIngredient,
+};
+
+export const setters = {
+  id: id,
+  name: name,
+  ingredients: ingredients.setter,
+};
+
+export const getters = {
+  id: id,
+  name: name,
+  ingredients: ingredients.getter,
+};

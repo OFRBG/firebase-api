@@ -1,14 +1,47 @@
 // @format
-import {get} from 'lodash';
+import {clone, get} from 'lodash';
+import {ObjectSchema} from 'yup';
 
-const FETCH_LIMIT = 100;
+const FETCH_LIMIT = 20;
 
-export * from './firestore';
+import * as firestore from './firestore';
 
 export const requireAuth = (currentUser: any) => {
   if (!get(currentUser, 'isAdmin')) {
     throw new Error(`Operation not allowed`);
   }
+};
+
+export const flatAwait = async (p: any) =>
+  await Promise.all([].concat(...(await p)));
+
+export const addToCollection = async (
+  collectionName: string,
+  schema: ObjectSchema<any>,
+  root: Object,
+  args: any,
+) => {
+  if (await schema.isValid(args.input))
+    return firestore.addToCollection(collectionName, clone(args.input));
+
+  throw new Error(`Invalid input object ${args.input} for schema ${schema}`);
+};
+
+export const fetchFromCollection = async (
+  collectionName: string,
+  root: Object,
+  args: any,
+) => {
+  const ids = get(root, collectionName);
+
+  const fetchedData = ids
+    ? flatAwait(
+        ids.map((id: string) =>
+          firestore.fetchFromCollection(collectionName, {id, ...args})),
+      )
+    : firestore.fetchFromCollection(collectionName, args);
+
+  return await flatAwait(fetchedData);
 };
 
 /**

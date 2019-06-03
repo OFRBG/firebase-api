@@ -1,18 +1,11 @@
 // @format
-import {clone} from 'lodash';
-
 import {addToCollection, fetchFromCollection} from '../../../utils';
-import {schema} from '../models';
+import {schema} from '../type';
 
 const collectionName = 'ingredients';
 
 export const getIngredient = async (root: Object, args: any, context: any) =>
-  fetchFromCollection(collectionName, args);
+  fetchFromCollection(collectionName, root, args);
 
-export const setIngredient = async (root: Object, args: any, context: any) => {
-  if (await schema.isValid(args.input)) {
-    return addToCollection(collectionName, clone(args.input));
-  }
-
-  throw new Error(`Invalid input object for schema: ${schema}`);
-};
+export const setIngredient = async (root: Object, args: any, context: any) =>
+  addToCollection(collectionName, schema, root, args);

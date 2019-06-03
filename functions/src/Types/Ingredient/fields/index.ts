@@ -1,17 +1,28 @@
 // @format
 import {GraphQLString, GraphQLBoolean} from 'graphql';
 
-export const id = {
+const id = {
   type: GraphQLString,
   description: 'Ingredient ID',
 };
 
-export const name = {
+const name = {
   type: GraphQLString,
   description: 'Ingredient name',
 };
 
-export const isVegan = {
+const isVegan = {
   type: GraphQLBoolean,
   description: 'Whether the ingredient is vegan',
+};
+
+export const setters = {
+  name: name,
+  isVegan: isVegan,
+};
+
+export const getters = {
+  id: id,
+  name: name,
+  isVegan: isVegan,
 };

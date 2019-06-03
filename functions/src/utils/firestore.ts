@@ -1,6 +1,8 @@
 // @format
 import * as admin from 'firebase-admin';
-import {appendId, applyFilters} from '../utils';
+import * as uniqid from 'uniqid';
+
+import {applyFilters} from '../utils';
 
 export const fetchFromCollection = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
@@ -8,14 +10,19 @@ export const fetchFromCollection = async (collection: string, args: any) => {
   const query = applyFilters(db, args);
   const fetchedData = await query.get();
 
-  return fetchedData.docs.map(appendId);
+  const docs = fetchedData.docs.map(doc => doc.data());
+
+  return docs;
 };
 
 export const addToCollection = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
+  const insertId = uniqid(`app:${collection}:`);
 
-  const insertedDocRef = await db.add(args);
-  const insertedDoc = await insertedDocRef.get();
+  const docRef = db.doc(insertId);
+  await docRef.set({...args, id: insertId});
 
-  return appendId(insertedDoc);
+  const doc = await docRef.get();
+
+  return doc.data();
 };

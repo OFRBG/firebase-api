@@ -1,8 +1,8 @@
 // @format
 import {GraphQLList} from 'graphql';
 
-import * as fields from '../fields';
-import {model} from '../models';
+import {getters as fields} from '../fields';
+import {model} from '../type';
 
 import * as resolvers from './resolvers';
 import * as inputTypes from './inputTypes';

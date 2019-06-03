@@ -1,7 +1,7 @@
 // @format
 import {GraphQLObjectType} from 'graphql';
 
-import * as fields from '../fields';
+import {getters as fields} from '../fields';
 
 export const model = new GraphQLObjectType({
   name: 'Dish',

@@ -11,8 +11,8 @@ const app = express();
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    dish: Dish.resolvers.getDish,
     ingredient: Ingredient.resolvers.getIngredient,
+    dish: Dish.resolvers.getDish,
   }),
 });
 
@@ -20,12 +20,14 @@ const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     setIngredient: Ingredient.resolvers.setIngredient,
+    setDish: Dish.resolvers.setDish,
   }),
 });
 
 const schema = new GraphQLSchema({
   query: QueryType,
   mutation: MutationType,
+  types: [Dish.model, Ingredient.model],
 });
 
 app.use(
