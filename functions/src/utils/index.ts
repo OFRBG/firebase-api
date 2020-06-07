@@ -12,13 +12,13 @@ export const requireAuth = (currentUser: any) => {
   }
 };
 
-export const flatAwait = async (p: any) =>
+export const flatAwait = async (p: Promise<any[]>) =>
   await Promise.all([].concat(...(await p)));
 
 export const addToCollection = async (
   collectionName: string,
   schema: ObjectSchema<any>,
-  root: Object,
+  root: any,
   args: any,
 ) => {
   if (await schema.isValid(args.input))
@@ -29,7 +29,7 @@ export const addToCollection = async (
 
 export const fetchFromCollection = async (
   collectionName: string,
-  root: Object,
+  root: any,
   args: any,
 ) => {
   const ids = get(root, collectionName);
@@ -54,7 +54,7 @@ export const fetchFromCollection = async (
  */
 export const applyFilters = (
   db: FirebaseFirestore.CollectionReference,
-  filters: Object,
+  filters: any,
 ) => {
   let query = db.limit(FETCH_LIMIT);
 

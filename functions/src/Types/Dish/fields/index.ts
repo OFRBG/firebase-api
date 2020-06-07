@@ -1,4 +1,5 @@
 // @format
+import {pick} from 'lodash';
 import {GraphQLString, GraphQLList} from 'graphql';
 
 import {Ingredient} from '../../../Types';
@@ -14,21 +15,22 @@ const name = {
 };
 
 const ingredients = {
-  setter: {
+  write: {
     type: GraphQLList(GraphQLString),
     description: 'Ingredients used',
   },
-  getter: Ingredient.resolvers.getIngredient,
+  read: Ingredient.resolvers.getter,
 };
 
-export const setters = {
-  id: id,
+export const writable = {
   name: name,
-  ingredients: ingredients.setter,
+  ingredients: ingredients.write,
 };
 
-export const getters = {
+export const readable = {
   id: id,
   name: name,
-  ingredients: ingredients.getter,
+  ingredients: ingredients.read,
 };
+
+export const args = pick(readable, ['id', 'name']);

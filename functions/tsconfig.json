@@ -24,8 +24,11 @@
       "esnext.asynciterable"
     ]
   },
-  "compileOnSave": true,
   "include": [
     "src"
+  ],
+  "exclude": [
+    ".eslintrc.js",
+    "./node_modules/"
   ]
 }

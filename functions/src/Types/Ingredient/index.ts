@@ -1,6 +1,6 @@
 // @format
-import {getters as fields} from './fields';
+import {readable} from './fields';
 import {model} from './type';
 import * as resolvers from './resolvers';
 
-export const Ingredient = {fields, resolvers, model};
+export const Ingredient = {readable, resolvers, model};

@@ -11,16 +11,16 @@ const app = express();
 const QueryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
-    ingredient: Ingredient.resolvers.getIngredient,
-    dish: Dish.resolvers.getDish,
+    ingredient: Ingredient.resolvers.getter,
+    dish: Dish.resolvers.getter,
   }),
 });
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
-    setIngredient: Ingredient.resolvers.setIngredient,
-    setDish: Dish.resolvers.setDish,
+    setIngredient: Ingredient.resolvers.setter,
+    setDish: Dish.resolvers.setter,
   }),
 });
 

@@ -1,4 +1,5 @@
 // @format
+import {pick} from 'lodash';
 import {GraphQLString, GraphQLBoolean} from 'graphql';
 
 const id = {
@@ -16,13 +17,15 @@ const isVegan = {
   description: 'Whether the ingredient is vegan',
 };
 
-export const setters = {
+export const writable = {
   name: name,
   isVegan: isVegan,
 };
 
-export const getters = {
+export const readable = {
   id: id,
   name: name,
   isVegan: isVegan,
 };
+
+export const args = pick(readable, ['name', 'isVegan']);

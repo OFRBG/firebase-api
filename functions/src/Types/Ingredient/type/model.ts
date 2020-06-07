@@ -1,10 +1,10 @@
 // @format
 import {GraphQLObjectType} from 'graphql';
 
-import {getters as fields} from '../fields';
+import {readable} from '../fields';
 
 export const model = new GraphQLObjectType({
   name: 'Ingredient',
   description: 'Ingredient used in dishes',
-  fields: fields,
+  fields: readable,
 });

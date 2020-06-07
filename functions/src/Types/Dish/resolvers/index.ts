@@ -1,20 +1,19 @@
 // @format
 import {GraphQLList} from 'graphql';
-import {pick} from 'lodash';
 
-import {getters as fields} from '../fields';
+import {args} from '../fields';
 import {model} from '../type';
+import * as inputTypes from '../inputTypes';
 
 import * as resolvers from './resolvers';
-import * as inputTypes from './inputTypes';
 
-export const getDish = {
+export const getter = {
   type: new GraphQLList(model),
-  args: pick(fields, ['id', 'name']),
+  args: args,
   resolve: resolvers.getDish,
 };
 
-export const setDish = {
+export const setter = {
   type: model,
   args: {
     input: {
