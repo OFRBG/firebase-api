@@ -8,7 +8,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "generate": "plop"
+    "generate": "plop",
+    "clean": "rm -rf src/Types/*"
   },
   "main": "lib/index.js",
   "engines": {

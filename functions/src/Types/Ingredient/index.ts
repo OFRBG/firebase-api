@@ -7,4 +7,4 @@ import * as resolvers from './resolvers';
 
 const name = 'ingredient';
 
-register({name, data :{readable, resolvers, model}});
+register({name, data: {readable, resolvers, model}});
