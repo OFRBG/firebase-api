@@ -1,0 +1,26 @@
+// @format
+import {GraphQLList} from 'graphql';
+
+import {args} from '../fields';
+import {model} from '../type';
+import * as inputTypes from '../inputTypes';
+
+import * as resolvers from './resolvers';
+
+/* Define the model for the readable query */
+export const getter = {
+  type: new GraphQLList(model),
+  args: args,
+  resolve: resolvers.get{{ properCase name }},
+};
+
+/* Define the model for the mutation */
+export const setter = {
+  type: model,
+  args: {
+    input: {
+      type: inputTypes.Set{{ properCase name }}Input,
+    },
+  },
+  resolve: resolvers.set{{ properCase name }},
+};

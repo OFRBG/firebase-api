@@ -14,10 +14,24 @@
   },
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 5000
     },
     "firestore": {
       "port": 8080
     }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }

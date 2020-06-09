@@ -5,6 +5,9 @@ import {readable} from './fields';
 import {model} from './type';
 import * as resolvers from './resolvers';
 
-const name = 'dish';
+/* Query field name for the type */
+const name = '{{ lowerCase name }}';
 
+/* Pack the readable fields, the resolvers, and the GraphQL model
+ * to use them with other types */
 register({name, data :{readable, resolvers, model}});

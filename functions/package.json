@@ -37,6 +37,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.2",
     "husky": "^2.3.0",
+    "plop": "^2.7.1",
     "typescript": "^3.2.2"
   },
   "private": true

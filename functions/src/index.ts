@@ -7,10 +7,12 @@ import {addNewUserToFirestore} from './Event/userHandlers';
 
 admin.initializeApp();
 
-const functionWithSettings = functions.runWith({
-  timeoutSeconds: 2,
-  memory: '128MB',
-});
+const functionWithSettings = functions
+  .runWith({
+    timeoutSeconds: 10,
+    memory: '128MB',
+  })
+  .region('europe-west3');
 
 export const graphql = functionWithSettings.https.onRequest(api);
 export const handlers = functionWithSettings.https.onRequest(httpsHandlers);

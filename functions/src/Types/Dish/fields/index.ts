@@ -2,7 +2,9 @@
 import {pick} from 'lodash';
 import {GraphQLString, GraphQLList} from 'graphql';
 
-import {Ingredient} from '../../../Types';
+import {retrieveType} from '../../../Types/registry';
+
+const Ingredient = retrieveType('ingredient');
 
 const id = {
   type: GraphQLString,

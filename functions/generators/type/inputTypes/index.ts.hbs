@@ -1,0 +1,11 @@
+// @format
+import {GraphQLInputObjectType} from 'graphql';
+
+import {writable} from '../fields';
+
+/* Define the type for the GraphQL creation mutation */
+export const Set{{ properCase name }}Input = new GraphQLInputObjectType({
+  name: 'Set{{ properCase name }}Input',
+  description: 'set{{ properCase name }} mutation input',
+  fields: () => writable,
+});

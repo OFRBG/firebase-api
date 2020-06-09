@@ -2,73 +2,15 @@
 
 <p align="center">
 <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
 <p align="center">
-  <img height="22" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
   <img height="15" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-  <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
   <b>Firestore + GraphQL</b>
-  <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
   <img height="15" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-  <img height="22" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
 <p align="center">
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
@@ -81,46 +23,28 @@ The `Query` type exposes resolvers linked to reading from the database. The `Mut
 ### `index.ts`
 
 ```ts
-import * as express from 'express';
-import * as graphqlHTTP from 'express-graphql';
-import {GraphQLSchema, GraphQLObjectType} from 'graphql';
-
-import {A, B} from '../Types';
+import '../Types';
+import {authenticateUser} from '../utils/auth';
+import {retrieve} from '../Types/registry';
 
 const app = express();
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
-  fields: () => ({
-    a: A.resolvers.getA,
-    b: B.resolvers.getB,
-  }),
+  fields: retrieve('getters'),
 });
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
-  fields: () => ({
-    setA: A.resolvers.setA,
-    setB: B.resolvers.setB
-  }),
+  fields: retrieve('setters'),
 });
 
 const schema = new GraphQLSchema({
   query: QueryType,
   mutation: MutationType,
-  types: [A.model, B.model],
+  types: values(retrieve('models')),
 });
 
-app.use(
-  graphqlHTTP(req => {
-    return {
-      schema: schema,
-      graphiql: true,
-    };
-  }),
-);
-
-export const api = app;
 ```
 
 ## Types
@@ -131,16 +55,16 @@ The structure for the API types is laid out as follows:
 .
 ├── fields
 │   └── index.ts
-├── index.ts
+├── inputTypes
+│   └── index.ts
 ├── resolvers
 │   ├── index.ts
-│   ├── inputTypes
-│   │   └── index.ts
 │   └── resolvers.ts
-└── type
-    ├── index.ts
-    ├── model.ts
-    └── schema.ts
+├── type
+│   ├── index.ts
+│   ├── model.ts
+│   └── schema.ts
+└── index.ts
 ```
 
 ### `index.ts`
@@ -148,11 +72,15 @@ The index file of the model exports the fields, the resolvers, and the GraphQL r
 is used in the main GraphQL app.
 
 ```ts
-import {getters as fields} from './fields';
+import {register} from '../registry';
+
+import {readable} from './fields';
 import {model} from './type';
 import * as resolvers from './resolvers';
 
-export const A = {fields, resolvers, model};
+const name = /* type name */;
+
+register({name, data :{readable, resolvers, model}});
 ```
 
 <p align="center">
@@ -192,33 +120,37 @@ Fields represent the API structure of a type. Every type has a `setter` export a
 Setter exports are used for resolvers that write, and getter exports are used for resolvers that read.
 
 e.g. When fetching a nested field we need to recursively call getter resolvers. When adding a new object,
-we only need to provide a list of linked objects. In this case, `A` references a list of ids of `B`.
+we only need to provide a list of linked objects.
 
 ```ts
 import {GraphQLString, GraphQLList} from 'graphql';
 
-import {B} from '../../../Types';
+const B = retrieveType('b');
 
 const prop1 = {
   type: GraphQLString,
 };
 
 const prop2 = {
-  setter: {
-    type: GraphQLList(GraphQLString),
+  write: {
+    type: /* graphql type */,
   },
-  getter: B.resolvers.getB,
+  read: B.resolvers.getter,
 };
 
-export const setters = {
-  prop1: prop1,
-  prop2: prop2.setter
+/* Fields for mutations */
+export const writable = {
+  prop1,
+  prop2: prop2.write,
 };
 
-export const getters = {
-  prop1: prop1,
-  prop2: prop2.getter
+/* Fields for queries */
+export const readable = {
+  prop1,
+  prop2: prop2.read,
 };
+
+export const args = pick(readable, [/* filterable */]);
 
 ```
 
@@ -260,24 +192,24 @@ The index contains the exported objects supplied to the top-level query. These o
 
 ```ts
 import {GraphQLList} from 'graphql';
-import {pick} from 'lodash';
 
-import {getters as fields} from '../fields';
+import {args} from '../fields';
 import {model} from '../type';
+import * as inputTypes from '../inputTypes';
 
 import * as resolvers from './resolvers';
-import * as inputTypes from './inputTypes';
 
-export const getA = {
+export const getter = {
   type: new GraphQLList(model),
-  args: pick(fields, ['prop1', 'prop2']),
+  args: args,
   resolve: resolvers.getA,
 };
 
-export const setA = {
+export const setter = {
   type: model,
   args: {
     input: {
+      /* Provide the data with input variable as JSON */
       type: inputTypes.SetAInput,
     },
   },
@@ -300,14 +232,13 @@ If the input will be used for a writing mutation, we need to retrieve the `sette
 
 ```ts
 import {GraphQLInputObjectType} from 'graphql';
-import {pick} from 'lodash';
 
-import {setters as fields} from '../../fields';
+import {writable} from '../fields';
 
 export const SetAInput = new GraphQLInputObjectType({
   name: 'SetAInput',
   description: 'setA mutation input',
-  fields: () => pick(fields, ['prop1', 'prop2']),
+  fields: () => writable,
 });
 ```
 
@@ -352,11 +283,11 @@ the readable fields, so we import the `getters` for our model.
 ```ts
 import {GraphQLObjectType} from 'graphql';
 
-import {getters as fields} from '../fields';
+import {readable} from '../fields';
 
 export const model = new GraphQLObjectType({
   name: 'A',
-  fields: () => fields,
+  fields: () => readable,
 });
 ```
 

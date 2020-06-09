@@ -1,0 +1,11 @@
+// @format
+import {GraphQLObjectType} from 'graphql';
+
+import {readable} from '../fields';
+
+/* Define the available fields for {{ properCase name }} */
+export const model = new GraphQLObjectType({
+  name: '{{ properCase name }}',
+  description: '{{ properCase name }} is {{ lowerCase description }}',
+  fields: readable,
+});

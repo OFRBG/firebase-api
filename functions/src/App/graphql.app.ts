@@ -2,32 +2,28 @@
 import * as express from 'express';
 import * as graphqlHTTP from 'express-graphql';
 import {GraphQLSchema, GraphQLObjectType} from 'graphql';
+import {values} from 'lodash';
 
-import {Dish, Ingredient} from '../Types';
+import '../Types';
 import {authenticateUser} from '../utils/auth';
+import {retrieve} from '../Types/registry';
 
 const app = express();
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
-  fields: () => ({
-    ingredient: Ingredient.resolvers.getter,
-    dish: Dish.resolvers.getter,
-  }),
+  fields: retrieve('getters'),
 });
 
 const MutationType = new GraphQLObjectType({
   name: 'Mutation',
-  fields: () => ({
-    setIngredient: Ingredient.resolvers.setter,
-    setDish: Dish.resolvers.setter,
-  }),
+  fields: retrieve('setters'),
 });
 
 const schema = new GraphQLSchema({
   query: QueryType,
   mutation: MutationType,
-  types: [Dish.model, Ingredient.model],
+  types: values(retrieve('models')),
 });
 
 app.use(
