@@ -14,14 +14,14 @@
 <img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
+## Generator
+To generate a new type's boilerplate, run `npm run generate`, which will output the files to `src/Types`.
+
 ## App
 The main file contains the GraphQL API building. It imports the types built under `Types/` and exposes them through queries.
 The `Query` type exposes resolvers linked to reading from the database. The `Mutation` type exposes the resolvers linked to the other operations. At this level, we only want to import the types and not implement any other logic.
 
 > Note: The structure design to expose the types is still under developement.
-
-## Generator
-To generate a new type's boilerplate, run `npm run generate`, which will output the files to `src/Types`.
 
 ### `index.ts`
 
