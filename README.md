@@ -20,6 +20,9 @@ The `Query` type exposes resolvers linked to reading from the database. The `Mut
 
 > Note: The structure design to expose the types is still under developement.
 
+## Generator
+To generate a new type's boilerplate, run `npm run generate`, which will output the files to `src/Types`.
+
 ### `index.ts`
 
 ```ts
