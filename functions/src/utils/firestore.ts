@@ -15,6 +15,10 @@ export const fetchFromCollection = async (collection: string, args: any) => {
   return docs;
 };
 
+export const fetchFromCollectionWithId = async (collection: string, id: string) => {
+  return fetchFromCollection(collection, {id});
+};
+
 export const addToCollection = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
   const insertId = uniqid(`app:${collection}:`);

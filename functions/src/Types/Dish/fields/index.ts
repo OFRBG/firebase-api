@@ -1,13 +1,13 @@
 // @format
 import {pick} from 'lodash';
-import {GraphQLString, GraphQLList} from 'graphql';
+import {GraphQLString, GraphQLID, GraphQLList} from 'graphql';
 
 import {retrieveType} from '../../../Types/registry';
 
 const Ingredient = retrieveType('ingredient');
 
 const id = {
-  type: GraphQLString,
+  type: GraphQLID,
   description: 'Dish ID',
 };
 

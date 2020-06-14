@@ -1,9 +1,9 @@
 // @format
 import {pick} from 'lodash';
-import {GraphQLString, GraphQLBoolean} from 'graphql';
+import {GraphQLID, GraphQLString, GraphQLBoolean} from 'graphql';
 
 const id = {
-  type: GraphQLString,
+  type: GraphQLID,
   description: 'Ingredient ID',
 };
 

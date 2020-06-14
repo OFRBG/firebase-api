@@ -36,9 +36,12 @@ export const fetchFromCollection = async (
 
   const fetchedData = ids
     ? flatAwait(
-        ids.map((id: string) => {
-          return firestore.fetchFromCollection(collectionName, {...args, id});
-        }),
+        ids.map((id: string) =>
+          firestore.fetchFromCollection(
+            collectionName,
+            {...args, id}
+          )
+        ),
       )
     : firestore.fetchFromCollection(collectionName, args);
 
