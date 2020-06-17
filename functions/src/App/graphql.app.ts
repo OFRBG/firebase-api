@@ -12,7 +12,7 @@ const app = express();
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
-  fields: retrieve('getters'),
+  fields: retrieve('root'),
 });
 
 const MutationType = new GraphQLObjectType({

@@ -2,8 +2,6 @@
 import {clone, get} from 'lodash';
 import {ObjectSchema} from 'yup';
 
-const FETCH_LIMIT = 20;
-
 import * as firestore from './firestore';
 
 export const requireAuth = (currentUser: any) => {
@@ -46,26 +44,6 @@ export const fetchFromCollection = async (
     : firestore.fetchFromCollection(collectionName, args);
 
   return await flatAwait(fetchedData);
-};
-
-/**
- * Apply Firestore filters and return the built Query
- *
- * @param {CollectionReference} db Collection to filter
- * @param {Object} filters Values to use to filter
- * @returns {Query} Firestore Query with the applied filters
- */
-export const applyFilters = (
-  db: FirebaseFirestore.CollectionReference,
-  filters: any,
-) => {
-  let query = db.limit(FETCH_LIMIT);
-
-  for (const [arg, value] of Object.entries(filters)) {
-    query = query.where(arg, '==', value);
-  }
-
-  return query;
 };
 
 /**

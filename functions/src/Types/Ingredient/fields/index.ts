@@ -1,10 +1,15 @@
 // @format
 import {pick} from 'lodash';
-import {GraphQLID, GraphQLString, GraphQLBoolean} from 'graphql';
+import {GraphQLString, GraphQLID, GraphQLNonNull, GraphQLBoolean} from 'graphql';
 
 const id = {
-  type: GraphQLID,
+  type: GraphQLNonNull(GraphQLID),
   description: 'Ingredient ID',
+};
+
+const searchId = {
+  type: GraphQLID,
+  description: 'ID of the ingredient to fetch',
 };
 
 const name = {
@@ -28,4 +33,7 @@ export const readable = {
   isVegan: isVegan,
 };
 
-export const args = pick(readable, ['name', 'isVegan']);
+export const args = {
+  ...pick(readable, ['name', 'isVegan']),
+  id: searchId,
+};

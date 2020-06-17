@@ -1,14 +1,19 @@
 // @format
 import {pick} from 'lodash';
-import {GraphQLString, GraphQLID, GraphQLList} from 'graphql';
+import {GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList} from 'graphql';
 
 import {retrieveType} from '../../../Types/registry';
 
-const Ingredient = retrieveType('ingredient');
+const Ingredient = retrieveType('ingredients');
 
 const id = {
-  type: GraphQLID,
+  type: GraphQLNonNull(GraphQLID),
   description: 'Dish ID',
+};
+
+const searchId = {
+  type: GraphQLID,
+  description: 'ID of the dish to fetch',
 };
 
 const name = {
@@ -21,7 +26,7 @@ const ingredients = {
     type: GraphQLList(GraphQLString),
     description: 'Ingredients used',
   },
-  read: Ingredient.resolvers.getter,
+  read: Ingredient.connection('ingredients'),
 };
 
 export const writable = {
@@ -35,4 +40,7 @@ export const readable = {
   ingredients: ingredients.read,
 };
 
-export const args = pick(readable, ['id', 'name']);
+export const args = {
+  ...pick(readable, ['name']),
+  id: searchId,
+};

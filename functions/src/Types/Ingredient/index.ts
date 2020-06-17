@@ -3,8 +3,9 @@ import {register} from '../registry';
 
 import {readable} from './fields';
 import {model} from './type';
+import {rootConnection, connection} from './relay/connection';
 import * as resolvers from './resolvers';
 
-const name = 'ingredient';
+const name = 'ingredients';
 
-register({name, data: {readable, resolvers, model}});
+register({name, data: {rootConnection, connection, readable, resolvers, model}});

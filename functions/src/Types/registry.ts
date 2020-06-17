@@ -5,7 +5,9 @@ const registry: any = {};
 const getPath = (path: string) => get({
   'setters': 'resolvers.setter',
   'getters': 'resolvers.getter',
-  'models': 'model'
+  'models': 'model',
+  'connection': 'connection',
+  'root': 'rootConnection',
 }, path, path);
 
 export const register = ({name, data}: {name: string, data: any}) => registry[name] = data;

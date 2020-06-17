@@ -1,8 +1,40 @@
 // @format
 import * as admin from 'firebase-admin';
-import * as uniqid from 'uniqid';
+import {toPairs} from 'lodash';
+import { v4 as uuid } from 'uuid';
+import {connectionArgs} from 'graphql-relay';
 
 import {applyFilters} from '../utils';
+
+const FETCH_LIMIT = 20;
+
+const getQueryParams = (arg, value) => {
+  return (arg === 'ids')
+    ? ['id', 'in', value]
+    : [arg, '==', value];
+}
+
+/**
+ * Apply Firestore filters and return the built Query
+ *
+ * @param {CollectionReference} db Collection to filter
+ * @param {Object} filters Values to use to filter
+ * @returns {Query} Firestore Query with the applied filters
+ */
+export const applyFilters = (
+  db: FirebaseFirestore.CollectionReference,
+  filters: any,
+) => {
+  let query = db.limit(FETCH_LIMIT);
+
+  for (const [arg, value] of toPairs(filters)) {
+    if (connectionArgs[arg]) continue;
+
+    query = query.where(...getQueryParams(arg, value));
+  }
+
+  return query;
+};
 
 export const fetchFromCollection = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
@@ -15,13 +47,9 @@ export const fetchFromCollection = async (collection: string, args: any) => {
   return docs;
 };
 
-export const fetchFromCollectionWithId = async (collection: string, id: string) => {
-  return fetchFromCollection(collection, {id});
-};
-
 export const addToCollection = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
-  const insertId = uniqid(`app:${collection}:`);
+  const insertId = `app:${collection}:${uuid()}`;
 
   const docRef = db.doc(insertId);
   await docRef.set({...args, id: insertId});
