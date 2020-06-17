@@ -23,8 +23,9 @@ const name = {
 
 const ingredients = {
   write: {
-    type: GraphQLList(GraphQLString),
+    type: GraphQLList(GraphQLID),
     description: 'Ingredients used',
+    collection: Ingredient.collectionName,
   },
   read: Ingredient.connection('ingredients'),
 };

@@ -3,11 +3,25 @@ import {register} from '../registry';
 
 import {readable} from './fields';
 import {model} from './type';
-import * as resolvers from './resolvers';
+import {rootConnection, connection} from './relay/connection';
+import {setter} from './resolvers';
+import {collectionName} from './resolvers/resolvers';
 
 /* Query field name for the type */
-const name = '{{ lowerCase name }}';
+const name = '{{ lowerCase rootName }}';
 
-/* Pack the readable fields, the resolvers, and the GraphQL model
- * to use them with other types */
-register({name, data: {readable, resolvers, model}});
+/**
+ * Pack the readable fields, the resolvers, and the GraphQL model
+ * to use them with other types
+ */
+register({
+  name,
+  data: {
+    collectionName,
+    connection,
+    model,
+    readable,
+    rootConnection,
+    setter,
+  }
+});

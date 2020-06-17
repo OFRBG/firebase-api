@@ -1,9 +1,17 @@
 // @format
 import * as yup from 'yup';
+import {writable} from '../fields';
+import {fieldsToYup} from '../../../utils/schema';
 
-export const schema = yup.object().shape({
-  name: yup.string().required(),
-  ingredients: yup
-    .array()
-    .of(yup.string().matches(/app:ingredients:[a-z0-9]+/i)),
-});
+const generatedFields = fieldsToYup(writable);
+
+const overrideFields = {};
+
+/**
+ * Create a yup validation schema to use
+ * before inserting to the database
+ */
+export const schema = yup.object()
+  .shape(generatedFields)
+  .shape(overrideFields)
+  .noUnknown();

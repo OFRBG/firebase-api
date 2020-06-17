@@ -1,5 +1,5 @@
 // @format
-import {clone, get} from 'lodash';
+import {get} from 'lodash';
 import {ObjectSchema} from 'yup';
 
 import * as firestore from './firestore';
@@ -19,10 +19,9 @@ export const addToCollection = async (
   root: any,
   args: any,
 ) => {
-  if (await schema.isValid(args.input))
-    return firestore.addToCollection(collectionName, clone(args.input));
+  const validated = await schema.validate(args.inputObject);
 
-  throw new Error(`Invalid input object ${args.input} for schema ${schema}`);
+  return firestore.addToCollection(collectionName, validated);
 };
 
 export const fetchFromCollection = async (

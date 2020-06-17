@@ -3,10 +3,8 @@ import {get, mapValues} from 'lodash';
 const registry: any = {};
 
 const getPath = (path: string) => get({
-  'setters': 'resolvers.setter',
-  'getters': 'resolvers.getter',
+  'setters': 'setter',
   'models': 'model',
-  'connection': 'connection',
   'root': 'rootConnection',
 }, path, path);
 

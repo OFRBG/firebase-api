@@ -2,7 +2,7 @@
 import {addToCollection, fetchFromCollection} from '../../../utils';
 import {schema} from '../type';
 
-const collectionName = 'dishes';
+export const collectionName = 'dishes';
 
 export const getDish = async (root: any, args: any, context: any) =>
   fetchFromCollection(collectionName, root, args);

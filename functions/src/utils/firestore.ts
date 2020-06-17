@@ -8,11 +8,9 @@ import {applyFilters} from '../utils';
 
 const FETCH_LIMIT = 20;
 
-const getQueryParams = (arg, value) => {
-  return (arg === 'ids')
-    ? ['id', 'in', value]
-    : [arg, '==', value];
-}
+const getQueryParams = (arg, value) => (arg === 'ids')
+  ? ['id', 'in', value]
+  : [arg, '==', value];
 
 /**
  * Apply Firestore filters and return the built Query

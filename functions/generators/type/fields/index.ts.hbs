@@ -1,17 +1,22 @@
 // @format
 import {pick} from 'lodash';
-import {GraphQLString, GraphQLBoolean} from 'graphql';
-
-import {retrieveType} from '../../../Types/registry';
+import {GraphQLString, GraphQLNonNull, GraphQLID} from 'graphql';
 
 {{#if depends}}
+import {retrieveType} from '../../../Types/registry';
+
 const /* OtherType */ = retrieveType(/* otherType */);
 {{/if}}
-
 /* Every item should have an ID */
 const id = {
-  type: GraphQLString,
+  type: GraphQLNonNull(GraphQLID),
   description: '{{ properCase name }} ID',
+};
+
+/* Search arg version of ID */
+const searchId = {
+  type: GraphQLID,
+  description: 'ID of {{ lowerCase name }} to fetch',
 };
 
 {{#if depends}}
@@ -20,23 +25,34 @@ const dependency = {
   write : {
     type: /* graphql type */,
     description: /* Description of this dependency */,
+    collection: /* OtherType */.collectionName,
   },
-  read: /* OtherType */.resolvers.getter,
+  read: /* OtherType */.connection(/* path to array of ids */),
 };
 {{/if}}
+/* Optional metadata string */
+const meta = {
+  type: GraphQLString,
+  description: '{{ properCase name }} metadata string',
+};
 
 /* These are the properties that may be written */
 export const writable = {
-  {{#if depends}}dependency: dependency.write,{{/if}}
+  meta,{{#if depends}}
+  dependency: dependency.write,{{/if}}
 };
 
 /* These are the properties that may be read */
 export const readable = {
   id,
-  {{#if depends}}dependency: dependency.read,{{/if}}
+  meta,{{#if depends}}
+  dependency: dependency.read,{{/if}}
 };
 
 /* These are the properties that may be used as queries
-* e.g. {{ collectionName name }}(id: 4242)
+ * e.g. {{ collectionName }}(id: 4242)
  */
-export const args = pick(readable, []);
+export const args = {
+  ...pick(readable, []),
+  id: searchId,
+};
