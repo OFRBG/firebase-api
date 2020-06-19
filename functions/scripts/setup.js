@@ -244,7 +244,7 @@ function initGitRepository() {
  */
 function addToGitRepository() {
   return new Promise((resolve, reject) => {
-    exec('git add .', (err, stdout) => {
+    exec('cd .. && git add .', (err, stdout) => {
       if (err) {
         reject(new Error(err));
       } else {
@@ -260,7 +260,7 @@ function addToGitRepository() {
  */
 function commitToGitRepository() {
   return new Promise((resolve, reject) => {
-    exec('git commit -m "Initial commit"', (err, stdout) => {
+    exec('cd .. && git commit -m "Initial commit"', (err, stdout) => {
       if (err) {
         reject(new Error(err));
       } else {
