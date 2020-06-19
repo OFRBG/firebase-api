@@ -228,7 +228,7 @@ function installPackages() {
  */
 function initGitRepository() {
   return new Promise((resolve, reject) => {
-    exec('git init', (err, stdout) => {
+    exec('cd .. && git init', (err, stdout) => {
       if (err) {
         reject(new Error(err));
       } else {
