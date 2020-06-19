@@ -3,9 +3,9 @@ import {get, mapValues} from 'lodash';
 const registry: any = {};
 
 const getPath = (path: string) => get({
-  'setters': 'resolvers.setter',
-  'getters': 'resolvers.getter',
-  'models': 'model'
+  'setters': 'setter',
+  'models': 'model',
+  'root': 'rootConnection',
 }, path, path);
 
 export const register = ({name, data}: {name: string, data: any}) => registry[name] = data;

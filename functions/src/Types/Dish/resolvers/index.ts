@@ -1,24 +1,13 @@
 // @format
-import {GraphQLList} from 'graphql';
+import {model as type} from '../type';
+import {DishInput as input} from '../inputTypes';
 
-import {args} from '../fields';
-import {model} from '../type';
-import * as inputTypes from '../inputTypes';
+import {setDish as resolve} from './resolvers';
 
-import * as resolvers from './resolvers';
-
-export const getter = {
-  type: new GraphQLList(model),
-  args: args,
-  resolve: resolvers.getDish,
-};
-
-export const setter = {
-  type: model,
-  args: {
-    input: {
-      type: inputTypes.SetDishInput,
-    },
+const args = {
+  inputObject: {
+    type: input,
   },
-  resolve: resolvers.setDish,
 };
+
+export const setter = {type, args, resolve};

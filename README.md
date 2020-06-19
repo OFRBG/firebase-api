@@ -1,29 +1,29 @@
-#  firebase-api
+#  Firebase GraphQL API
 
-<p align="center">
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-</p>
+Libraries are great for integrations, but I personally believe that template generators create more mature systems that can be tailored for specific needs without being limited by black-boxing. This template generator can fire up an almost-no-config GraphQL on a Cloud Function with Firestore as data store.
 
-<p align="center">
-  <img height="15" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-  <b>Firestore + GraphQL</b>
-  <img height="15" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-</p>
+## Prerequisites
+In order to make this generator work, a few prerequisites need to be covered.
 
-<p align="center">
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-</p>
+### Firebase Setup
+0. Install Node 8 or use nvm
+1. Install `firebase-tools`. Use `npm i -g firebase-tools@latest`.
+2. Run `firebase login` and use the account linked to your Firebase project.
+3. Clone the project
+4. Run `firebase init`. Install Firestore, Functions, and Emulators.
+
+> If you don't have a project yet, create a new Firebase project and set your region. You then need to activate Firestore.
 
 ## Generator
 To generate a new type's boilerplate, run `npm run generate`, which will output the files to `src/Types`.
 
+# Template Generator
+
 ## App
 The main file contains the GraphQL API building. It imports the types built under `Types/` and exposes them through queries.
-The `Query` type exposes resolvers linked to reading from the database. The `Mutation` type exposes the resolvers linked to the other operations. At this level, we only want to import the types and not implement any other logic.
+The `Query` type exposes resolvers linked to reading from the database. The `Mutation` type exposes the resolvers linked to the other operations.
 
-> Note: The structure design to expose the types is still under developement.
-
-### `index.ts`
+ `index.ts`
 
 ```ts
 import '../Types';
@@ -34,7 +34,7 @@ const app = express();
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
-  fields: retrieve('getters'),
+  fields: retrieve('root'),
 });
 
 const MutationType = new GraphQLObjectType({
@@ -47,7 +47,6 @@ const schema = new GraphQLSchema({
   mutation: MutationType,
   types: values(retrieve('models')),
 });
-
 ```
 
 ## Types
@@ -57,175 +56,74 @@ The structure for the API types is laid out as follows:
 ```
 .
 ├── fields
-│   └── index.ts
+│   └── index.ts
+├── index.ts
 ├── inputTypes
-│   └── index.ts
+│   └── index.ts
+├── relay
+│   ├── connection.ts
+│   └── node.ts
 ├── resolvers
-│   ├── index.ts
-│   └── resolvers.ts
-├── type
 │   ├── index.ts
-│   ├── model.ts
-│   └── schema.ts
-└── index.ts
-```
-
-### `index.ts`
-The index file of the model exports the fields, the resolvers, and the GraphQL representation of the type. This information
-is used in the main GraphQL app.
-
-```ts
-import {register} from '../registry';
-
-import {readable} from './fields';
-import {model} from './type';
-import * as resolvers from './resolvers';
-
-const name = /* type name */;
-
-register({name, data :{readable, resolvers, model}});
+│   └── resolvers.ts
+└── type
+    ├── index.ts
+    ├── model.ts
+    └── schema.ts
 ```
 
 <p align="center">
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="30" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+</p>
+
+### `index.ts`
+The index file of the type template registers several data points that can be accessed by the main application logic and by other types.
+
+```ts
+register({
+  name,
+  data: {
+    collectionName,
+    connection,
+    model,
+    readable,
+    rootConnection,
+    setter,
+  }
+});
+```
+
+| Key | Data |
+|--|--|
+| collectionName | The Firestore collection's name |
+| connection | The Relay Connection |
+| model | The GraphQL Object |
+| readable | The fields that the model exposes |
+| rootConnection | The Relay Connection to use at root level |
+| setter | The GraphQL input object description |
+
+<p align="center">
+<img height="30" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
 ### `fields/index.ts`
 
-Fields represent the API structure of a type. Every type has a `setter` export and a `getter` export.
-Setter exports are used for resolvers that write, and getter exports are used for resolvers that read.
-
-e.g. When fetching a nested field we need to recursively call getter resolvers. When adding a new object,
-we only need to provide a list of linked objects.
-
-```ts
-import {GraphQLString, GraphQLList} from 'graphql';
-
-const B = retrieveType('b');
-
-const prop1 = {
-  type: GraphQLString,
-};
-
-const prop2 = {
-  write: {
-    type: /* graphql type */,
-  },
-  read: B.resolvers.getter,
-};
-
-/* Fields for mutations */
-export const writable = {
-  prop1,
-  prop2: prop2.write,
-};
-
-/* Fields for queries */
-export const readable = {
-  prop1,
-  prop2: prop2.read,
-};
-
-export const args = pick(readable, [/* filterable */]);
-
-```
+Objects correspond to the GraphQL fields that can be either read, written, or filtered. These are exported as `readable`, `writable`, and `args`. Writtable are the fields that are set via mutation. Readable are the fields that can be queries via query. Args are a subset of `readable` used as arguments for queries.
 
 <p align="center">
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="30" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
-### `resolvers/`
+### `resolvers`
 #### `index.ts`
 
-The index contains the exported objects supplied to the top-level query. These object need `[type, args, resolve]` to be valid fields.
-
-```ts
-import {GraphQLList} from 'graphql';
-
-import {args} from '../fields';
-import {model} from '../type';
-import * as inputTypes from '../inputTypes';
-
-import * as resolvers from './resolvers';
-
-export const getter = {
-  type: new GraphQLList(model),
-  args: args,
-  resolve: resolvers.getA,
-};
-
-export const setter = {
-  type: model,
-  args: {
-    input: {
-      /* Provide the data with input variable as JSON */
-      type: inputTypes.SetAInput,
-    },
-  },
-  resolve: resolvers.setA,
-};
-```
+The index contains the exported object supplied to the top-level query. The export needs `{type, args, resolve}` to build the mutation.
 
 #### `resolvers.ts`
-Resolvers contain the logic to proxy the database. They take the GraphQL resolver params `[root, args, context]`
-and return the type specified by `type` of the exported object in `index`.
+Resolvers contain the logic to proxy the database. They take the GraphQL resolver params `[root, args, context]` and return the type specified by `type` of the exported object in `index`.
 
 ```ts
-export const getA = async (root: Object, args: any, context: any) =>
+export const getA = async (root: any, args: any, context: any): Promise<Item> =>
   fetchFromDB( ... );
 ```
 
@@ -238,42 +136,15 @@ import {GraphQLInputObjectType} from 'graphql';
 
 import {writable} from '../fields';
 
-export const SetAInput = new GraphQLInputObjectType({
-  name: 'SetAInput',
-  description: 'setA mutation input',
+export const TypeInput = new GraphQLInputObjectType({
+  name: 'AInput',
+  description: 'A mutation input',
   fields: () => writable,
 });
 ```
 
 <p align="center">
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
-<img height="10" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
+<img height="30" src="https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png"></img>
 </p>
 
 ### `type/`
@@ -289,22 +160,30 @@ import {GraphQLObjectType} from 'graphql';
 import {readable} from '../fields';
 
 export const model = new GraphQLObjectType({
-  name: 'A',
+  name: 'A data type',
   fields: () => readable,
 });
 ```
 
 #### `schema.ts`
-It is useful to have a secondary schema validation library.
-It is particularly helpful when running mutations to validate the shape of the inputs.
+It is useful to have a secondary schema validation library to guard Firestore uploads. The template includes a generic schema generator from the field structure, but it is possible to write your own schema instead. The schema runs before uploading using the included Firestore utils.
 
 ```ts
-import * as yup from 'yup'; /* Simple ORM https://github.com/jquense/yup */
+import * as yup from 'yup';
+import {writable} from '../fields';
+import {fieldsToYup} from '../../../utils/schema';
 
-export const schema = yup.object().shape({
-  prop1: yup.string().required(),
-  prop2: yup
-    .array()
-    .of(yup.string()),
-});
+const generatedFields = fieldsToYup(writable);
+
+const overrideFields = {};
+
+/**
+ * Create a yup validation schema to use
+ * before inserting to the database
+ */
+export const schema = yup.object()
+  .shape(generatedFields)
+  .shape(overrideFields)
+  .noUnknown();
+
 ```

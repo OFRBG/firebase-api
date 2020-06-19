@@ -3,8 +3,20 @@ import {register} from '../registry';
 
 import {readable} from './fields';
 import {model} from './type';
-import * as resolvers from './resolvers';
+import {rootConnection, connection} from './relay/connection';
+import {setter} from './resolvers';
+import {collectionName} from './resolvers/resolvers';
 
-const name = 'dish';
+const name = 'dishes';
 
-register({name, data: {readable, resolvers, model}});
+register({
+  name,
+  data: {
+    collectionName,
+    connection,
+    model,
+    readable,
+    rootConnection, 
+    setter,
+  }
+});

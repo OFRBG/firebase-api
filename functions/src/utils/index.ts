@@ -1,8 +1,6 @@
 // @format
-import {clone, get} from 'lodash';
+import {get} from 'lodash';
 import {ObjectSchema} from 'yup';
-
-const FETCH_LIMIT = 20;
 
 import * as firestore from './firestore';
 
@@ -21,10 +19,9 @@ export const addToCollection = async (
   root: any,
   args: any,
 ) => {
-  if (await schema.isValid(args.input))
-    return firestore.addToCollection(collectionName, clone(args.input));
+  const validated = await schema.validate(args.inputObject);
 
-  throw new Error(`Invalid input object ${args.input} for schema ${schema}`);
+  return firestore.addToCollection(collectionName, validated);
 };
 
 export const fetchFromCollection = async (
@@ -36,33 +33,16 @@ export const fetchFromCollection = async (
 
   const fetchedData = ids
     ? flatAwait(
-        ids.map((id: string) => {
-          return firestore.fetchFromCollection(collectionName, {...args, id});
-        }),
+        ids.map((id: string) =>
+          firestore.fetchFromCollection(
+            collectionName,
+            {...args, id}
+          )
+        ),
       )
     : firestore.fetchFromCollection(collectionName, args);
 
   return await flatAwait(fetchedData);
-};
-
-/**
- * Apply Firestore filters and return the built Query
- *
- * @param {CollectionReference} db Collection to filter
- * @param {Object} filters Values to use to filter
- * @returns {Query} Firestore Query with the applied filters
- */
-export const applyFilters = (
-  db: FirebaseFirestore.CollectionReference,
-  filters: any,
-) => {
-  let query = db.limit(FETCH_LIMIT);
-
-  for (const [arg, value] of Object.entries(filters)) {
-    query = query.where(arg, '==', value);
-  }
-
-  return query;
 };
 
 /**
