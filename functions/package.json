@@ -9,6 +9,7 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "generate": "plop",
+    "setup": "npm i chalk shelljs && node ./internals/scripts/setup.js",
     "clean": "rm -rf src/Types/**/*"
   },
   "main": "lib/index.js",
