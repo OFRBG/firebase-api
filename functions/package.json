@@ -9,16 +9,13 @@
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
     "generate": "plop",
-    "clean": "rm -rf src/Types/*"
+    "clean": "rm -rf src/Types/**/*"
   },
   "main": "lib/index.js",
   "engines": {
     "node": "10"
   },
   "dependencies": {
-    "@types/graphql": "^14.5.0",
-    "@types/graphql-relay": "^0.6.0",
-    "@types/uuid": "^8.0.0",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "firebase": "^7.15.0",
@@ -26,13 +23,14 @@
     "firebase-functions": "^3.7.0",
     "graphql": "^14.2.1",
     "graphql-relay": "^0.6.0",
-    "list": "^2.0.18",
     "lodash": "^4.17.15",
-    "uniqid": "^5.0.3",
     "uuid": "^8.1.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/graphql-relay": "^0.6.0",
+    "@types/uuid": "^8.0.0",
     "@types/express-graphql": "^0.6.2",
     "@types/firebase": "^3.2.1",
     "@types/lodash": "^4.14.155",
