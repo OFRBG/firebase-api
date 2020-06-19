@@ -28,13 +28,15 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@types/graphql": "^14.5.0",
-    "@types/graphql-relay": "^0.6.0",
-    "@types/uuid": "^8.0.0",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@types/express-graphql": "^0.6.2",
     "@types/firebase": "^3.2.1",
+    "@types/graphql": "^14.5.0",
+    "@types/graphql-relay": "^0.6.0",
     "@types/lodash": "^4.14.155",
     "@types/uniqid": "^4.1.3",
+    "@types/uuid": "^8.0.0",
     "@types/yup": "^0.26.13",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
