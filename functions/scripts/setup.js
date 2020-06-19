@@ -80,7 +80,7 @@ function checkIfRepositoryIsAClone() {
 function removeGitRepository() {
   return new Promise((resolve, reject) => {
     try {
-      shell.rm('-rf', '.git/');
+      shell.rm('-rf', '../.git/');
       resolve();
     } catch (err) {
       reject(err);
