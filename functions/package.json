@@ -15,7 +15,7 @@
   "main": "lib/index.js",
   "engines": {
     "node": "10",
-    "node": "6"
+    "npm": "6"
   },
   "dependencies": {
     "express": "^4.16.4",
