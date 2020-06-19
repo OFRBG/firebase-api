@@ -26,6 +26,7 @@ export const applyFilters = (
   for (const [arg, value] of toPairs(filters)) {
     if (connectionArgs[arg]) continue;
 
+    // @ts-ignore
     query = query.where(...getQueryParams(arg, value));
   }
 

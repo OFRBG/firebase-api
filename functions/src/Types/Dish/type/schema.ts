@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import {writable} from '../fields';
 import {fieldsToYup} from '../../../utils/schema';
 
+// @ts-ignore
 const generatedFields = fieldsToYup(writable);
 
 const overrideFields = {};
