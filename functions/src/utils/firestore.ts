@@ -4,11 +4,9 @@ import {toPairs} from 'lodash';
 import { v4 as uuid } from 'uuid';
 import {connectionArgs} from 'graphql-relay';
 
-import {applyFilters} from '../utils';
-
 const FETCH_LIMIT = 20;
 
-const getQueryParams = (arg, value) => (arg === 'ids')
+const getQueryParams = (arg: string, value: string): [string, string, string] => (arg === 'ids')
   ? ['id', 'in', value]
   : [arg, '==', value];
 
@@ -21,14 +19,14 @@ const getQueryParams = (arg, value) => (arg === 'ids')
  */
 export const applyFilters = (
   db: FirebaseFirestore.CollectionReference,
-  filters: any,
+  filters: {[key: string]: string},
 ) => {
   let query = db.limit(FETCH_LIMIT);
 
   for (const [arg, value] of toPairs(filters)) {
     if (connectionArgs[arg]) continue;
 
-    query = query.where(...getQueryParams(arg, value));
+    query = query.where(...getQueryParams(arg, value) as [string, string, string]);
   }
 
   return query;

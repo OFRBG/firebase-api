@@ -2,7 +2,7 @@
 import {GraphQLObjectType} from 'graphql';
 
 import {readable} from '../fields';
-import {nodeInterface} from '../node';
+import {nodeInterface} from '../relay/node';
 
 export const model = new GraphQLObjectType({
   name: 'Ingredient',

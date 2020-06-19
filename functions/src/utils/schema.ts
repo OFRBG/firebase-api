@@ -1,10 +1,16 @@
 import * as yup from 'yup';
 import {mapValues, get} from 'lodash';
 
-const appId = (collection) =>
+type Field = {
+  collection: string;
+  type: any;
+  name: string;
+}
+
+const appId = (collection: Field['collection']) =>
   new RegExp(`^app:${collection}:[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$`, 'i');
 
-const fieldTypeToYup = (field: {type: any, name: string}) => {
+const fieldTypeToYup = (field: Field) => {
   const [fullMatch, baseType] = field.type
     .toString()
     .match(/\[?(\w+)\]?/);
@@ -28,4 +34,4 @@ const fieldTypeToYup = (field: {type: any, name: string}) => {
   return schemaField.required();
 }
 
-export const fieldsToYup = (fields) => mapValues(fields, fieldTypeToYup)
+export const fieldsToYup = (fields: {[key: string]: Field}) => mapValues(fields, fieldTypeToYup)
