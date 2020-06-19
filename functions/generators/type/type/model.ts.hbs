@@ -2,10 +2,12 @@
 import {GraphQLObjectType} from 'graphql';
 
 import {readable} from '../fields';
+import {nodeInterface} from '../relay/node';
 
 /* Define the available fields for {{ properCase name }} */
 export const model = new GraphQLObjectType({
   name: '{{ properCase name }}',
   description: '{{ properCase name }} is a {{ lowerCase description }}',
+  interfaces: [nodeInterface],
   fields: readable,
 });
