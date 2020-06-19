@@ -65,7 +65,7 @@ function checkIfRepositoryIsAClone() {
         .split(/\r?\n/)
         .map(line => line.trim())
         .filter(line => line.startsWith('origin'))
-        .filter(line => /ofrbg\/firebase-api\.git/.test(line))
+        .filter(line => /OFRBG\/firebase-api\.git/.test(line))
         .length;
 
       resolve(!!isClonedRepo);
