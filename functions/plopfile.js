@@ -11,30 +11,33 @@ module.exports = function (plop) {
         name: 'name',
         message: 'What is the name of the type?',
         validate: function (value) {
-          if ((/.+/).test(value)) { return true; }
+          if ((/^.+$/).test(value)) { return true; }
           return 'Name is required';
         },
         transformer: function(value) {
-          return _.startCase(value)
+          return _.startCase(value).replace(/\s/g, '');
         }
       }, 
       {
         type: 'input',
         name: 'rootName',
         message: 'What should the GraphQL root field be named?',
-        default: (ctx) => `${ctx.name}s`,
+        default: (ctx) => `${_.camelCase(ctx.name)}s`,
         validate: function (value) {
           if ((/^.+$/).test(value)) { return true; }
           return 'Root query name is required';
+        },
+        transformer: function(value) {
+          return _.camelCase(value);
         }
       },
       {
         type: 'input',
         name: 'collectionName',
         message: 'What should the Firestore collection be named?',
-        default: (ctx) => ctx.rootName,
+        default: (ctx) => _.kebabCase(ctx.rootName),
         validate: function (value) {
-          if ((/.+/).test(value)) { return true; }
+          if ((/^.+$/).test(value)) { return true; }
           return `Collection name is required.`;
         },
         transformer: function(value) {
@@ -45,7 +48,7 @@ module.exports = function (plop) {
         type: 'input',
         name: 'description',
         message: function(ctx) {
-          return `What does this type represent? ${_.capitalize(ctx.name)} is a`
+          return `What does this type represent? ${_.startCase(ctx.name)} is a`
         },
         validate: function (value) {
           if ((/^.+$/).test(value)) { return true; }

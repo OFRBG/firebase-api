@@ -8,7 +8,7 @@ import {get {{~ properCase name ~}} } from '../resolvers/resolvers';
 
 const {connectionType} = connectionDefinitions({nodeType: model});
 
-export const connection = (path = '{{ collectionName }}') => ({
+export const connection = (path = '{{ rootName }}') => ({
   type: connectionType,
   description: '{{ properCase name }} connection',
   args: merge({}, args, connectionArgs),
