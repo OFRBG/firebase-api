@@ -7,8 +7,9 @@ export const collectionName = '{{ collectionName }}';
 /**
  * Fetch the data for {{ properCase name }} from storage
  */
-export const get{{ properCase name }} = async (root: any, args: any, context: any) =>
-  fetchFromCollection(collectionName, root, args);
+export const get{{ properCase name }} = (idPath = collectionName) =>
+  async (root: any, args: any, context: any) =>
+    fetchFromCollection(collectionName, root, args, idPath);
 
 /**
  * Fetch the data for {{ properCase name }} from storage

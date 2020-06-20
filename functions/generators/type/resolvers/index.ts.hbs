@@ -1,13 +1,27 @@
 // @format
+import {GraphQLList} from 'graphql';
+
 import {model as type} from '../type';
-import { {{~ properCase name }}Input as input} from '../inputTypes';
+import {args as getterArgs} from '../fields';
+import { {{~ properCase name }}Input as inputType} from '../inputTypes';
 
-import {set{{ properCase name }} as resolve} from './resolvers';
+import {set{{ properCase name }} as setterResolve} from './resolvers';
+import {get{{ properCase name }} as getterResolve} from './resolvers';
 
-const args = {
+const setterArgs = {
   inputObject: {
-    type: input,
+    type: inputType,
   },
 };
 
-export const setter = {type, args, resolve};
+export const getter = (idPath: string) => ({
+  type: new GraphQLList(type),
+  args: getterArgs,
+  resolve: getterResolve(idPath),
+});
+
+export const setter = {
+  type: type,
+  args: setterArgs,
+  resolve: setterResolve,
+};

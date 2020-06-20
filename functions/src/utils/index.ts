@@ -1,5 +1,5 @@
 // @format
-import {get} from 'lodash';
+import {get, has, set} from 'lodash';
 import {ObjectSchema} from 'yup';
 
 import * as firestore from './firestore';
@@ -28,19 +28,13 @@ export const fetchFromCollection = async (
   collectionName: string,
   root: any,
   args: any,
+  idPath: string,
 ) => {
-  const ids = get(root, collectionName);
+  const requestArgs = has(root, idPath)
+    ? set(args, 'ids', get(root, idPath))
+    : args;
 
-  const fetchedData = ids
-    ? flatAwait(
-        ids.map((id: string) =>
-          firestore.fetchFromCollection(
-            collectionName,
-            {...args, id}
-          )
-        ),
-      )
-    : firestore.fetchFromCollection(collectionName, args);
+  const fetchedData = firestore.fetchFromCollection(collectionName, requestArgs);
 
   return await flatAwait(fetchedData);
 };
