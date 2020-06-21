@@ -1,14 +1,25 @@
 // @format
 import * as admin from 'firebase-admin';
-import {toPairs} from 'lodash';
+import {toPairs, isString} from 'lodash';
 import { v4 as uuid } from 'uuid';
 import {connectionArgs} from 'graphql-relay';
 
+type FirestoreOp = [string, string, string | string[]];
+
 const FETCH_LIMIT = 20;
 
-const getQueryParams = (arg: string, value: string): [string, string, string] => (arg === 'ids')
-  ? ['id', 'in', value]
-  : [arg, '==', value];
+const getSimpleQuery = (value: string, field: string): FirestoreOp =>
+  [value, '==', field];
+
+const getArrayQuery = (field: string, value: string | string[]): FirestoreOp =>
+  field[0] === '-' 
+    ? [field.slice(1), 'array-contains', value]
+    : [field, 'in', value];
+
+const getQueryParams = (arg: string, reference: string | string[]): FirestoreOp =>
+  arg[0] !== '*' && isString(reference)
+    ? getSimpleQuery(arg, reference)
+    : getArrayQuery(arg.slice(1), reference);
 
 /**
  * Apply Firestore filters and return the built Query

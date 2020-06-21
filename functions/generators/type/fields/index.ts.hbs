@@ -1,11 +1,23 @@
 // @format
 import {pick} from 'lodash';
-import {GraphQLString, GraphQLNonNull, GraphQLID} from 'graphql';
+import {GraphQLString, GraphQLNonNull, GraphQLID{{#if depends}}, GraphQLList{{/if~}} } from 'graphql';
 
 {{#if depends}}
 import {retrieveType} from '../../../Types/registry';
 
 const /* OtherType */ = retrieveType(/* otherType */);
+
+/**
+ * Add this field to OtherType and
+ * add a reverse reference to the dependency field by using
+ * either .getter('-dependency') or .connection('-dependency').
+ * The field needs to be lazy evaluated so that the registry is
+ * populated.
+
+const {{ collectionName }} = () => retrieveType('{{ name }}').connection('-dependency'),
+
+ */
+
 {{/if}}
 /* Every item should have an ID */
 const id = {
@@ -23,12 +35,13 @@ const searchId = {
 /* These are the properties for dependent fields */
 const dependency = {
   write : {
-    type: /* graphql type */,
+    type: GraphQLList(GraphQLID), /* Insert as list even if it's only one */
     description: /* Description of this dependency */,
     collection: /* OtherType */.collectionName,
   },
   read: /* OtherType */.connection(/* path to array of ids */),
 };
+
 {{/if}}
 /* Optional metadata string */
 const meta = {

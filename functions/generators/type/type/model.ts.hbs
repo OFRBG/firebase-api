@@ -1,5 +1,6 @@
 // @format
 import {GraphQLObjectType} from 'graphql';
+import {isFunction, mapValues} from 'lodash';
 
 import {readable} from '../fields';
 import {nodeInterface} from '../../../utils/node';
@@ -9,5 +10,7 @@ export const model = new GraphQLObjectType({
   name: '{{ properCase name }}',
   description: '{{ properCase name }} is a {{ lowerCase description }}',
   interfaces: [nodeInterface],
-  fields: readable,
+  fields: () => mapValues(readable, (field: Function | object) =>
+    isFunction(field) ? field() : field
+  ),
 });

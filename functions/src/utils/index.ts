@@ -1,5 +1,5 @@
 // @format
-import {get, has, set} from 'lodash';
+import {get, set} from 'lodash';
 import {ObjectSchema} from 'yup';
 
 import * as firestore from './firestore';
@@ -24,17 +24,24 @@ export const addToCollection = async (
   return firestore.addToCollection(collectionName, validated);
 };
 
+const isReverseSearch = (path: string) => path[0] === '-';
+
 export const fetchFromCollection = async (
   collectionName: string,
   root: any,
   args: any,
   idPath: string,
 ) => {
-  const requestArgs = has(root, idPath)
-    ? set(args, 'ids', get(root, idPath))
-    : args;
+  if (root) {
+    isReverseSearch(idPath)
+      ? set(args, `*${idPath}`, get(root, 'id'))
+      : set(args, '*id', get(root, idPath));
+  }
 
-  const fetchedData = firestore.fetchFromCollection(collectionName, requestArgs);
+  const fetchedData = firestore.fetchFromCollection(
+    collectionName,
+    args
+  );
 
   return await flatAwait(fetchedData);
 };
