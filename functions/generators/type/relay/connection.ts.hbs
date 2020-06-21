@@ -9,7 +9,7 @@ const {connectionType} = connectionDefinitions({nodeType: model});
 
 export const connection = (path = 'dishes') => ({
   type: connectionType,
-  description: 'Dish connection',
+  description: '{{ properCase name }} connection',
   args: merge({}, args, connectionArgs),
   resolve: async (root: any, args: any) => {
     const nodes = await getter(path)(root, args, null);
