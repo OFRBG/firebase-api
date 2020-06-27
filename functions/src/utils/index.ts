@@ -1,5 +1,5 @@
 // @format
-import {get, set} from 'lodash';
+import {get, set, first, last} from 'lodash';
 import {ObjectSchema} from 'yup';
 
 import * as firestore from './firestore';
@@ -12,6 +12,18 @@ export const requireAuth = (currentUser: any) => {
 
 export const flatAwait = async (p: Promise<any[]>) =>
   await Promise.all([].concat(...(await p)));
+
+export const updateDocument = async (
+  collectionName: string,
+  id: string,
+  schema: ObjectSchema<any>,
+  root: any,
+  args: any,
+) => {
+  const validated = await schema.validate(args.inputObject, {context: {isUpdate: true}});
+
+  return firestore.updateDocument(collectionName, id, validated);
+};
 
 export const addToCollection = async (
   collectionName: string,
@@ -55,3 +67,22 @@ export const fetchFromCollection = async (
 export const appendId = (doc: FirebaseFirestore.DocumentSnapshot) => {
   return {...doc.data(), id: doc.id};
 };
+
+/**
+ * Build relay response object from Firestore docs
+ *
+ * @param {Documents[]} nodes
+ * @returns {Connection}
+ */
+export const buildRelayConnection = (nodes) => ({
+  edges: nodes.map(node => ({
+    cursor: node.id,
+    node,
+  })),
+  pageInfo: {
+    startCursor: get(first(nodes), 'id', null),
+    endCursor: get(last(nodes), 'id', null),
+    hasNextPage: false,
+    hasPreviousPage: false,
+  }
+});

@@ -2,7 +2,6 @@
 import * as admin from 'firebase-admin';
 import {toPairs, isString} from 'lodash';
 import { v4 as uuid } from 'uuid';
-import {connectionArgs} from 'graphql-relay';
 
 type FirestoreOp = [string, string, string | string[]];
 
@@ -12,7 +11,7 @@ const getSimpleQuery = (value: string, field: string): FirestoreOp =>
   [value, '==', field];
 
 const getArrayQuery = (field: string, value: string | string[]): FirestoreOp =>
-  field[0] === '-' 
+  field[0] === '-'
     ? [field.slice(1), 'array-contains', value]
     : [field, 'in', value];
 
@@ -20,6 +19,38 @@ const getQueryParams = (arg: string, reference: string | string[]): FirestoreOp 
   arg[0] !== '*' && isString(reference)
     ? getSimpleQuery(arg, reference)
     : getArrayQuery(arg.slice(1), reference);
+
+/**
+ * Apply pagination args where possible
+ *
+ * @param {Query} query Firestore Query with the applied filters
+ * @param {string} after
+ * @param {string} before
+ * @param {string} first
+ * @param {string} last
+ * @returns {Query} query Firestore Query with pagination
+ */
+const applyConnectionArgs = (query, after, before, first, last) => {
+  if (after || first) {
+    query = query.orderBy('id');
+
+    query = after ? query.startAfter(after) : query;
+    query = first ? query.limit(first) : first;
+
+    return query;
+  }
+
+  if (before || last) {
+    query = query.orderBy('id', 'desc');
+
+    query = after ? query.startAfter(before) : query;
+    query = first ? query.limit(last) : first;
+
+    return query;
+  }
+
+  return query;
+}
 
 /**
  * Apply Firestore filters and return the built Query
@@ -30,18 +61,19 @@ const getQueryParams = (arg: string, reference: string | string[]): FirestoreOp 
  */
 export const applyFilters = (
   db: FirebaseFirestore.CollectionReference,
-  filters: {[key: string]: string},
+  args: {[key: string]: string},
 ) => {
   let query = db.limit(FETCH_LIMIT);
+  const { after, before, first, last, ...filters } = args;
 
   for (const [arg, value] of toPairs(filters)) {
-    if (connectionArgs[arg]) continue;
+    const params = getQueryParams(arg, value);
 
     // @ts-ignore
-    query = query.where(...getQueryParams(arg, value));
+    query = query.where(...params);
   }
 
-  return query;
+  return applyConnectionArgs(query, after, before, first, last);
 };
 
 export const fetchFromCollection = async (collection: string, args: any) => {
@@ -57,10 +89,23 @@ export const fetchFromCollection = async (collection: string, args: any) => {
 
 export const addToCollection = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
+
   const insertId = `app:${collection}:${uuid()}`;
+  const contentType = collection;
 
   const docRef = db.doc(insertId);
-  await docRef.set({...args, id: insertId});
+  await docRef.set({...args, id: insertId, contentType});
+
+  const doc = await docRef.get();
+
+  return doc.data();
+};
+
+export const updateDocument = async (collection: string, id: string, args: any) => {
+  const db = admin.firestore().collection(collection);
+
+  const docRef = db.doc(id);
+  await docRef.set(args, {merge: true});
 
   const doc = await docRef.get();
 

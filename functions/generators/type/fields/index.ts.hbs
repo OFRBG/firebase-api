@@ -43,22 +43,21 @@ const dependency = {
 };
 
 {{/if}}
-/* Optional metadata string */
-const meta = {
+/* contentType data string */
+const contentType = {
   type: GraphQLString,
-  description: '{{ properCase name }} metadata string',
+  description: 'Content type',
 };
 
 /* These are the properties that may be written */
-export const writable = {
-  meta,{{#if depends}}
+export const writable = { {{~#if depends}}
   dependency: dependency.write,{{/if}}
 };
 
 /* These are the properties that may be read */
 export const readable = {
   id,
-  meta,{{#if depends}}
+  contentType,{{#if depends}}
   dependency: dependency.read,{{/if}}
 };
 
