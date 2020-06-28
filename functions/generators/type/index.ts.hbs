@@ -2,7 +2,7 @@
 import {register} from '../registry';
 
 import {readable} from './fields';
-import {model} from './type';
+import {model, schema} from './type';
 import {rootConnection, connection} from './relay/connection';
 import {setter, getter} from './resolvers';
 import {collectionName} from './resolvers/resolvers';
@@ -24,5 +24,6 @@ register({
     readable,
     rootConnection,
     setter,
+    schema,
   }
 });

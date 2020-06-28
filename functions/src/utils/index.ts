@@ -1,11 +1,11 @@
 // @format
-import {get, set, first, last} from 'lodash';
-import {ObjectSchema} from 'yup';
+import { get, set, first, last } from "lodash";
+import { ObjectSchema } from "yup";
 
-import * as firestore from './firestore';
+import * as firestore from "./firestore";
 
 export const requireAuth = (currentUser: any) => {
-  if (!get(currentUser, 'isAdmin')) {
+  if (!get(currentUser, "isAdmin")) {
     throw new Error(`Operation not allowed`);
   }
 };
@@ -13,50 +13,7 @@ export const requireAuth = (currentUser: any) => {
 export const flatAwait = async (p: Promise<any[]>) =>
   await Promise.all([].concat(...(await p)));
 
-export const updateDocument = async (
-  collectionName: string,
-  id: string,
-  schema: ObjectSchema<any>,
-  root: any,
-  args: any,
-) => {
-  const validated = await schema.validate(args.inputObject, {context: {isUpdate: true}});
-
-  return firestore.updateDocument(collectionName, id, validated);
-};
-
-export const addToCollection = async (
-  collectionName: string,
-  schema: ObjectSchema<any>,
-  root: any,
-  args: any,
-) => {
-  const validated = await schema.validate(args.inputObject);
-
-  return firestore.addToCollection(collectionName, validated);
-};
-
-const isReverseSearch = (path: string) => path[0] === '-';
-
-export const fetchFromCollection = async (
-  collectionName: string,
-  root: any,
-  args: any,
-  idPath: string,
-) => {
-  if (root) {
-    isReverseSearch(idPath)
-      ? set(args, `*${idPath}`, get(root, 'id'))
-      : set(args, '*id', get(root, idPath));
-  }
-
-  const fetchedData = firestore.fetchFromCollection(
-    collectionName,
-    args
-  );
-
-  return await flatAwait(fetchedData);
-};
+const isReverseSearch = (path: string) => path[0] === "-";
 
 /**
  * Get document data and add its id
@@ -65,7 +22,7 @@ export const fetchFromCollection = async (
  * @returns {Object} Document data with its id
  */
 export const appendId = (doc: FirebaseFirestore.DocumentSnapshot) => {
-  return {...doc.data(), id: doc.id};
+  return { ...doc.data(), id: doc.id };
 };
 
 /**
@@ -74,15 +31,59 @@ export const appendId = (doc: FirebaseFirestore.DocumentSnapshot) => {
  * @param {Documents[]} nodes
  * @returns {Connection}
  */
-export const buildRelayConnection = (nodes) => ({
+export const buildRelayConnection = (
+  nodes: FirebaseFirestore.DocumentData[]
+) => ({
   edges: nodes.map(node => ({
     cursor: node.id,
-    node,
+    node
   })),
   pageInfo: {
-    startCursor: get(first(nodes), 'id', null),
-    endCursor: get(last(nodes), 'id', null),
+    startCursor: get(first(nodes), "id", null),
+    endCursor: get(last(nodes), "id", null),
     hasNextPage: false,
-    hasPreviousPage: false,
+    hasPreviousPage: false
   }
 });
+
+export const updateDocument = async (
+  collectionName: string,
+  id: string,
+  schema: () => ObjectSchema<any>,
+  root: any,
+  args: any
+) => {
+  const validated = await schema().validate(args.inputObject, {
+    context: { isUpdate: true }
+  });
+
+  return firestore.updateDocument(collectionName, id, validated);
+};
+
+export const addToCollection = async (
+  collectionName: string,
+  schema: () => ObjectSchema<any>,
+  root: any,
+  args: any
+) => {
+  const validated = await schema().validate(args.inputObject);
+
+  return firestore.addToCollection(collectionName, validated);
+};
+
+export const fetchFromCollection = async (
+  collectionName: string,
+  root: any,
+  args: any,
+  idPath = collectionName
+): Promise<FirebaseFirestore.DocumentData[]> => {
+  if (root) {
+    isReverseSearch(idPath)
+      ? set(args, `*${idPath}`, get(root, "id"))
+      : set(args, "*id", get(root, idPath));
+  }
+
+  const fetchedData = firestore.fetchFromCollection(collectionName, args);
+
+  return await flatAwait(fetchedData);
+};

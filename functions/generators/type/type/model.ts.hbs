@@ -10,7 +10,7 @@ export const model = new GraphQLObjectType({
   name: '{{ properCase name }}',
   description: '{{ properCase name }} is a {{ lowerCase description }}',
   interfaces: [nodeInterface],
-  fields: () => mapValues(readable, (field: Function | object) =>
+  fields: () => mapValues(readable, field =>
     isFunction(field) ? field() : field
   ),
 });

@@ -1,3 +1,3 @@
 // @format
-export {model} from './model';
-export {schema} from './schema';
+export { model } from "./model";
+export { schema } from "./schema";

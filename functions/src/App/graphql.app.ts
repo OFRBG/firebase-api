@@ -1,29 +1,29 @@
 // @format
-import * as express from 'express';
-import * as graphqlHTTP from 'express-graphql';
-import {GraphQLSchema, GraphQLObjectType} from 'graphql';
-import {values} from 'lodash';
+import * as express from "express";
+import * as graphqlHTTP from "express-graphql";
+import { GraphQLSchema, GraphQLObjectType } from "graphql";
+import { values } from "lodash";
 
-import '../Types';
-import {authenticateUser} from '../utils/auth';
-import {retrieve} from '../Types/registry';
+import "../Types";
+import { authenticateUser } from "../utils/auth";
+import { retrieve } from "../Types/registry";
 
 const app = express();
 
 const QueryType = new GraphQLObjectType({
-  name: 'Query',
-  fields: retrieve('root'),
+  name: "Query",
+  fields: retrieve("root")
 });
 
 const MutationType = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: retrieve('setters'),
+  name: "Mutation",
+  fields: retrieve("setters")
 });
 
 const schema = new GraphQLSchema({
   query: QueryType,
   mutation: MutationType,
-  types: values(retrieve('models')),
+  types: values(retrieve("models"))
 });
 
 app.use(
@@ -32,11 +32,11 @@ app.use(
     return {
       schema: schema,
       context: {
-        currentUser: req.app.locals.currentUser,
+        currentUser: req.app.locals.currentUser
       },
-      graphiql: true,
+      graphiql: true
     };
-  }),
+  })
 );
 
 export const api = app;

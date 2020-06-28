@@ -1,47 +1,53 @@
 // @format
-import {pick} from 'lodash';
-import {GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList} from 'graphql';
+import { pick } from "lodash";
+import { GraphQLString, GraphQLNonNull, GraphQLID, GraphQLList } from "graphql";
 
-import {retrieveType} from '../../../Types/registry';
+import { retrieveType } from "../../../Types/registry";
 
-const Ingredient = retrieveType('ingredients');
+const Ingredient = retrieveType("ingredients");
 
 const id = {
   type: GraphQLNonNull(GraphQLID),
-  description: 'Dish ID',
+  description: "Dish ID"
 };
 
 const searchId = {
   type: GraphQLID,
-  description: 'ID of the dish to fetch',
+  description: "ID of the dish to fetch"
+};
+
+const contentType = {
+  type: GraphQLString,
+  description: "Content type"
 };
 
 const name = {
   type: GraphQLString,
-  description: 'Dish name',
+  description: "Dish name"
 };
 
 const ingredients = {
   write: {
     type: GraphQLList(GraphQLID),
-    description: 'Ingredients used',
-    collection: Ingredient.collectionName,
+    description: "Ingredients used",
+    collection: Ingredient.collectionName
   },
-  read: Ingredient.connection('ingredients'),
+  read: Ingredient.connection("ingredients")
 };
 
 export const writable = {
-  name: name,
-  ingredients: ingredients.write,
+  name,
+  ingredients: ingredients.write
 };
 
 export const readable = {
-  id: id,
-  name: name,
-  ingredients: ingredients.read,
+  id,
+  name,
+  contentType,
+  ingredients: ingredients.read
 };
 
 export const args = {
-  ...pick(readable, ['name']),
-  id: searchId,
+  ...pick(readable, ["name"]),
+  id: searchId
 };

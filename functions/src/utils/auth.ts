@@ -1,6 +1,6 @@
 // @format
-import * as admin from 'firebase-admin';
-import {Response, Request, NextFunction} from 'express';
+import * as admin from "firebase-admin";
+import { Response, Request, NextFunction } from "express";
 
 /**
  * Authenticate the user and set the id in app.locals
@@ -8,19 +8,19 @@ import {Response, Request, NextFunction} from 'express';
 const authenticateUser = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
-  const authHeader = req.get('Authorization');
+  const authHeader = req.get("Authorization");
 
   if (authHeader) {
-    const token = authHeader.split('Bearer ')[1];
+    const token = authHeader.split("Bearer ")[1];
 
     try {
       const claims = await admin.auth().verifyIdToken(token);
       req.app.locals.currentUser = {
-        uid: claims.uid || '',
+        uid: claims.uid || "",
         isAdmin: claims.isAdmin || false,
-        isOwner: claims.isOwner || false,
+        isOwner: claims.isOwner || false
       };
 
       next();
@@ -32,4 +32,4 @@ const authenticateUser = async (
   }
 };
 
-export {authenticateUser};
+export { authenticateUser };

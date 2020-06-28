@@ -1,5 +1,5 @@
 // @format
-import * as admin from 'firebase-admin';
+import * as admin from "firebase-admin";
 
 /**
  * Add a new user to Firestore on creation
@@ -9,6 +9,6 @@ import * as admin from 'firebase-admin';
 export const addNewUserToFirestore = async (user: admin.auth.UserRecord) => {
   await admin
     .firestore()
-    .collection('users')
-    .add({uid: user.uid, email: user.email});
+    .collection("users")
+    .add({ uid: user.uid, email: user.email });
 };
