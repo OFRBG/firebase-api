@@ -1,5 +1,5 @@
 // @format
-import {add, fetch} from '../../../utils';
+import {add, fetch, remove} from '../../../utils';
 import {schema} from '../type';
 
 export const collectionName = '{{ collectionName }}';
@@ -16,3 +16,9 @@ export const get{{ properCase name }} = (idPath = collectionName) =>
  */
 export const set{{ properCase name }} = async (root: any, args: any, context: any) =>
   add(collectionName, schema, root, args);
+
+/**
+ * Remove a list of docs of {{ properCase name }}
+ */
+export const remove{{ properCase name}} = async (root: any, args: any, context: any) =>
+  remove(collectionName, root, args);

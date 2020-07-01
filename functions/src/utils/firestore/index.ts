@@ -68,5 +68,19 @@ export const update = async (collection: string, id: string, args: any) => {
   return doc.data();
 };
 
+export const remove = async (collection: string, ids: string[]) => {
+  const db = admin.firestore().collection(collection);
+
+  const docs = await db.where("id", "in", ids).get();
+
+  const batch = admin.firestore().batch();
+
+  docs.forEach(doc => batch.delete(doc.ref));
+
+  await batch.commit();
+
+  return docs.size;
+};
+
 export const addToArray = admin.firestore.FieldValue.arrayUnion;
 export const deleteFromArray = admin.firestore.FieldValue.arrayRemove;

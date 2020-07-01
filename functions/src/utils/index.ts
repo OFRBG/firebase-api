@@ -56,37 +56,6 @@ export const buildRelayConnection = (
 });
 
 /**
- * Update a Firestore document in a collection
- */
-export const update = async (
-  collectionName: string,
-  id: string,
-  schema: () => ObjectSchema<any>,
-  root: any,
-  args: any
-) => {
-  const validated = await schema().validate(args.inputObject, {
-    context: { isUpdate: true }
-  });
-
-  return firestore.update(collectionName, id, validated);
-};
-
-/**
- * Add a document to a Firestore collection
- */
-export const add = async (
-  collectionName: string,
-  schema: () => ObjectSchema<any>,
-  root: any,
-  args: any
-) => {
-  const validated = await schema().validate(args.inputObject);
-
-  return firestore.add(collectionName, validated);
-};
-
-/**
  * Fetch a document from a Firestore collection
  */
 export const fetch = async (
@@ -102,4 +71,44 @@ export const fetch = async (
   }
 
   return firestore.fetch(collectionName, args);
+};
+
+/**
+ * Add a document to a Firestore collection
+ */
+export const add = async (
+  collectionName: string,
+  root: any,
+  args: any,
+  schema: () => ObjectSchema<any>
+) => {
+  const validated = await schema().validate(args.inputObject);
+
+  return firestore.add(collectionName, validated);
+};
+
+/**
+ * Update a Firestore document in a collection
+ */
+export const update = async (
+  collectionName: string,
+  root: any,
+  args: any,
+  id: string,
+  schema: () => ObjectSchema<any>
+) => {
+  const validated = await schema().validate(args.inputObject, {
+    context: { isUpdate: true }
+  });
+
+  return firestore.update(collectionName, id, validated);
+};
+
+/**
+ * Delete a Firestore document in a collection
+ */
+export const remove = async (collectionName: string, root: any, args: any) => {
+  const { ids = [] } = args;
+
+  return firestore.remove(collectionName, ids);
 };
