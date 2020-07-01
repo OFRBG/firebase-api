@@ -46,7 +46,7 @@ export const buildRelayConnection = (
   }
 });
 
-export const updateDocument = async (
+export const update = async (
   collectionName: string,
   id: string,
   schema: () => ObjectSchema<any>,
@@ -57,10 +57,10 @@ export const updateDocument = async (
     context: { isUpdate: true }
   });
 
-  return firestore.updateDocument(collectionName, id, validated);
+  return firestore.update(collectionName, id, validated);
 };
 
-export const addToCollection = async (
+export const add = async (
   collectionName: string,
   schema: () => ObjectSchema<any>,
   root: any,
@@ -68,10 +68,10 @@ export const addToCollection = async (
 ) => {
   const validated = await schema().validate(args.inputObject);
 
-  return firestore.addToCollection(collectionName, validated);
+  return firestore.add(collectionName, validated);
 };
 
-export const fetchFromCollection = async (
+export const fetch = async (
   collectionName: string,
   root: any,
   args: any,
@@ -83,7 +83,7 @@ export const fetchFromCollection = async (
       : set(args, "*id", get(root, idPath));
   }
 
-  const fetchedData = firestore.fetchFromCollection(collectionName, args);
+  const fetchedData = firestore.fetch(collectionName, args);
 
   return await flatAwait(fetchedData);
 };

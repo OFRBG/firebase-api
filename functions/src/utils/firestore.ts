@@ -90,7 +90,7 @@ export const applyFilters = (
   return applyConnectionArgs(query, after, before, first, last);
 };
 
-export const fetchFromCollection = async (collection: string, args: any) => {
+export const fetch = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
 
   const query = applyFilters(db, args);
@@ -101,7 +101,7 @@ export const fetchFromCollection = async (collection: string, args: any) => {
   return docs;
 };
 
-export const addToCollection = async (collection: string, args: any) => {
+export const add = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
 
   const insertId = `app:${collection}:${uuid()}`;
@@ -115,7 +115,7 @@ export const addToCollection = async (collection: string, args: any) => {
   return doc.data();
 };
 
-export const updateDocument = async (
+export const update = async (
   collection: string,
   id: string,
   args: any
@@ -131,4 +131,4 @@ export const updateDocument = async (
 };
 
 export const addToArray = admin.firestore.FieldValue.arrayUnion;
-export const removeFromArray = admin.firestore.FieldValue.arrayRemove;
+export const deleteFromArray = admin.firestore.FieldValue.arrayRemove;

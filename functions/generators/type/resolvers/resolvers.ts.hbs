@@ -1,5 +1,5 @@
 // @format
-import {addToCollection, fetchFromCollection} from '../../../utils';
+import {add, fetch} from '../../../utils';
 import {schema} from '../type';
 
 export const collectionName = '{{ collectionName }}';
@@ -9,10 +9,10 @@ export const collectionName = '{{ collectionName }}';
  */
 export const get{{ properCase name }} = (idPath = collectionName) =>
   async (root: any, args: any, context: any) =>
-    fetchFromCollection(collectionName, root, args, idPath);
+    fetch(collectionName, root, args, idPath);
 
 /**
- * Fetch the data for {{ properCase name }} from storage
+ * Set the data for {{ properCase name }} to a new doc
  */
 export const set{{ properCase name }} = async (root: any, args: any, context: any) =>
-  addToCollection(collectionName, schema, root, args);
+  add(collectionName, schema, root, args);
