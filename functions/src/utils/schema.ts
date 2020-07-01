@@ -1,6 +1,6 @@
 // @format
 import * as yup from "yup";
-import { mapValues, isFunction, get } from "lodash";
+import { mapValues, get, isFunction } from "lodash";
 
 type Field = {
   collection: string;
@@ -29,7 +29,7 @@ export const fieldGenerator = (collection: string) => ({
       )
 });
 
-const fieldTypeToYup = (field: Field) => {
+const fieldTypeToYup = (field: Field): yup.MixedSchema => {
   const [fullMatch, baseType] = field.type.toString().match(/\[?(\w+)\]?/);
 
   const isArray = get(fullMatch, "[0]") === "[";

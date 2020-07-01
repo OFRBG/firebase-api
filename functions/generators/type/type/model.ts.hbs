@@ -1,16 +1,14 @@
 // @format
 import {GraphQLObjectType} from 'graphql';
-import {isFunction, mapValues} from 'lodash';
 
 import {readable} from '../fields';
 import {nodeInterface} from '../../../utils/node';
+import { resolveLazy } from "../../../utils";
 
 /* Define the available fields for {{ properCase name }} */
 export const model = new GraphQLObjectType({
   name: '{{ properCase name }}',
   description: '{{ properCase name }} is a {{ lowerCase description }}',
   interfaces: [nodeInterface],
-  fields: () => mapValues(readable, field =>
-    isFunction(field) ? field() : field
-  ),
+  fields: () => resolveLazy(readable)
 });

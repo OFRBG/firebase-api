@@ -1,5 +1,5 @@
 // @format
-import { get, set, first, last } from "lodash";
+import { get, set, first, last, isFunction, mapValues } from "lodash";
 import { ObjectSchema } from "yup";
 
 import * as firestore from "./firestore";
@@ -10,9 +10,18 @@ export const requireAuth = (currentUser: any) => {
   }
 };
 
-export const flatAwait = async (p: Promise<any[]>) =>
-  await Promise.all([].concat(...(await p)));
+/**
+ * Map lazy value to their values
+ */
+export const resolveLazy = <T>(values: { [key: string]: T | (() => T) }) =>
+  mapValues(values, value => (isFunction(value) ? value() : value));
 
+/**
+ * Check if the parameter is a reverse relation
+ *
+ * @param {string} path
+ * @returns {boolean}
+ */
 const isReverseSearch = (path: string) => path[0] === "-";
 
 /**
@@ -46,6 +55,9 @@ export const buildRelayConnection = (
   }
 });
 
+/**
+ * Update a Firestore document in a collection
+ */
 export const update = async (
   collectionName: string,
   id: string,
@@ -60,6 +72,9 @@ export const update = async (
   return firestore.update(collectionName, id, validated);
 };
 
+/**
+ * Add a document to a Firestore collection
+ */
 export const add = async (
   collectionName: string,
   schema: () => ObjectSchema<any>,
@@ -71,6 +86,9 @@ export const add = async (
   return firestore.add(collectionName, validated);
 };
 
+/**
+ * Fetch a document from a Firestore collection
+ */
 export const fetch = async (
   collectionName: string,
   root: any,
@@ -83,7 +101,5 @@ export const fetch = async (
       : set(args, "*id", get(root, idPath));
   }
 
-  const fetchedData = firestore.fetch(collectionName, args);
-
-  return await flatAwait(fetchedData);
+  return firestore.fetch(collectionName, args);
 };

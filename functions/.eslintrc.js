@@ -7,7 +7,7 @@ module.exports = {
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
-        "prettier",
+        "plugin:prettier/recommended",
         "prettier/@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
@@ -16,11 +16,13 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
     "rules": {
         "@typescript-eslint/explicit-module-boundary-types": 0, 
         "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/ban-ts-comment": 0
+        "@typescript-eslint/ban-ts-comment": 0,
+        "@typescript-eslint/indent": 0
     }
 };
