@@ -17,7 +17,7 @@ const QueryType = new GraphQLObjectType({
 
 const MutationType = new GraphQLObjectType({
   name: "Mutation",
-  fields: retrieve("setters")
+  fields: { ...retrieve("setters"), ...retrieve("deleters") }
 });
 
 const schema = new GraphQLSchema({

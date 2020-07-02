@@ -1,5 +1,5 @@
 // @format
-import { GraphQLList, GraphQLID } from "graphql";
+import { GraphQLList, GraphQLID, GraphQLInt } from "graphql";
 
 import { model as type } from "../type";
 import { args as getterArgs } from "../fields";
@@ -34,7 +34,7 @@ export const setter = {
 };
 
 export const deleter = {
-  type: type,
+  type: GraphQLInt,
   args: deleterArgs,
   resolve: deleterResolve
 };

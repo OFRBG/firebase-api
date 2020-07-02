@@ -1,4 +1,4 @@
-import { get, mapValues } from "lodash";
+import { get, mapValues, mapKeys } from "lodash";
 
 const registry: any = {};
 
@@ -7,10 +7,20 @@ const getPath = (path: string) =>
     {
       setters: "setter",
       models: "model",
+      deleters: "deleter",
       root: "rootConnection"
     },
     path,
     path
+  );
+
+const getKeyMap = (field: string) =>
+  get(
+    {
+      deleters: (value: any, key: string) => `${key}Deletion`
+    },
+    field,
+    (value: any, key: string) => key
   );
 
 export const register = ({ name, data }: { name: string; data: any }) =>
@@ -18,7 +28,12 @@ export const register = ({ name, data }: { name: string; data: any }) =>
 
 export const retrieveType = (name: string) => registry[name];
 
-export const retrieve = (field: string) =>
-  mapValues(registry, data => {
-    return get(data, getPath(field));
-  });
+export const retrieve = (field: string) => {
+  const requestedValues = mapValues(registry, data =>
+    get(data, getPath(field))
+  );
+
+  const mappedKeys = mapKeys(requestedValues, getKeyMap(field));
+
+  return mappedKeys;
+};
