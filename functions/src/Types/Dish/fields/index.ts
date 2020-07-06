@@ -30,7 +30,8 @@ const ingredients = {
   write: {
     type: GraphQLList(GraphQLID),
     description: "Ingredients used",
-    collection: Ingredient.collectionName
+    collection: Ingredient.collectionName,
+    useSubcollection: false
   },
   read: Ingredient.connection("ingredients")
 };

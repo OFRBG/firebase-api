@@ -38,6 +38,7 @@ const dependency = {
     type: GraphQLList(GraphQLID), /* Insert as list even if it's only one */
     description: /* Description of this dependency */,
     collection: /* OtherType */.collectionName,
+    useSubcollection: false
   },
   read: /* OtherType */.connection(/* path to array of ids */),
 };

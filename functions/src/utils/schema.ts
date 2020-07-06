@@ -1,11 +1,13 @@
 // @format
 import * as yup from "yup";
-import { mapValues, get, isFunction } from "lodash";
+import { mapValues, get, isFunction, clone, set } from "lodash";
 
 type Field = {
-  collection: string;
-  type: any;
+  collection?: string;
+  description: string;
   name: string;
+  type: any;
+  useSubcollection?: boolean;
 };
 
 type ExportField = () => Field | Field;
@@ -16,7 +18,7 @@ const appId = (collection: Field["collection"]) =>
     "i"
   );
 
-export const fieldGenerator = (collection: string) => ({
+export const fieldGenerator = (collection?: string) => ({
   String: () => yup.string(),
   Boolean: () => yup.boolean(),
   ID: () =>
@@ -37,6 +39,11 @@ const fieldTypeToYup = (field: Field): yup.MixedSchema => {
   let schemaField = get(fieldGenerator(field.collection), baseType, yup.mixed);
 
   schemaField = isArray ? yup.array(schemaField()) : schemaField();
+  schemaField = field.useSubcollection
+    ? schemaField.transform((value: any[]) =>
+        set(clone(value), "collection", field.collection)
+      )
+    : schemaField;
 
   return schemaField.when("$isUpdate", {
     is: true,

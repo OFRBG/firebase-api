@@ -1,11 +1,40 @@
 // @format
 import * as admin from "firebase-admin";
 import { ConnectionArguments } from "graphql-relay";
-import { toPairs } from "lodash";
+import { toPairs, partition, has, fromPairs } from "lodash";
 import { v4 as uuid } from "uuid";
 import { getQueryParams, applyConnectionArgs } from "./helpers";
 
 const FETCH_LIMIT = 20;
+
+const partitionSubcollectionFields = (args: any) =>
+  partition(toPairs(args), ([, arg]) => has(arg, "useSubcollection"));
+
+const handleSubcollections = (
+  docRef: FirebaseFirestore.DocumentReference
+) => async ([key, ids]: [string, any]) => {
+  const sub = docRef.collection(ids.collection);
+
+  const docs = await Promise.all(
+    ids.map(async (id: string) => {
+      const source = await admin
+        .firestore()
+        .doc(`${ids.collection}/${id}`)
+        .get();
+
+      const docData = source.data();
+
+      if (!docData)
+        throw new Error(`Referenced document "${id}" does not exist.`);
+
+      await sub.doc(id).set(docData);
+
+      return docData;
+    })
+  );
+
+  return [key, docs];
+};
 
 /**
  * Apply Firestore filters and return the built Query
@@ -45,37 +74,58 @@ export const fetch = async (collection: string, args: any) => {
 
 export const add = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
+  const [subcollectionFields, fields] = partitionSubcollectionFields(args);
 
   const insertId = `app:${collection}:${uuid()}`;
   const contentType = collection;
 
   const docRef = db.doc(insertId);
-  await docRef.set({ ...args, id: insertId, contentType });
+  await docRef.set({ ...fromPairs(fields), id: insertId, contentType });
 
-  const doc = await docRef.get();
+  try {
+    await Promise.all(subcollectionFields.map(handleSubcollections(docRef)));
 
-  return doc.data();
+    const doc = await docRef.get();
+
+    return { ...doc.data(), ...fromPairs(subcollectionFields) };
+  } catch (error) {
+    await docRef.delete();
+
+    throw error;
+  }
 };
 
 export const update = async (collection: string, id: string, args: any) => {
   const db = admin.firestore().collection(collection);
+  const [subcollectionFields, fields] = partitionSubcollectionFields(args);
 
   const docRef = db.doc(id);
-  await docRef.set(args, { merge: true });
+  await docRef.set(fromPairs(fields), { merge: true });
 
-  const doc = await docRef.get();
+  try {
+    await Promise.all(subcollectionFields.map(handleSubcollections(docRef)));
 
-  return doc.data();
+    const doc = await docRef.get();
+
+    return { ...doc.data(), ...fromPairs(subcollectionFields) };
+  } catch (error) {
+    await docRef.delete();
+
+    throw error;
+  }
 };
 
 export const remove = async (collection: string, ids: string[]) => {
   const db = admin.firestore().collection(collection);
+  const group = admin.firestore().collectionGroup(collection);
 
   const docs = await db.where("id", "in", ids).get();
+  const linkedDocs = await group.where("id", "in", ids).get();
 
   const batch = admin.firestore().batch();
 
   docs.forEach(doc => batch.delete(doc.ref));
+  linkedDocs.forEach(doc => batch.delete(doc.ref));
 
   await batch.commit();
 

@@ -1,5 +1,14 @@
 // @format
-import { get, set, first, last, isFunction, mapValues } from "lodash";
+import {
+  get,
+  set,
+  first,
+  last,
+  isFunction,
+  mapValues,
+  has,
+  isArray
+} from "lodash";
 import { ObjectSchema } from "yup";
 
 import * as firestore from "./firestore";
@@ -23,6 +32,15 @@ export const resolveLazy = <T>(values: { [key: string]: T | (() => T) }) =>
  * @returns {boolean}
  */
 const isReverseSearch = (path: string) => path[0] === "-";
+
+/**
+ * Check if the root object has an array at the given path
+ *
+ * @param {Object} root GraphQL root object to check
+ * @param {String} idPath Path of the array with IDs
+ */
+const rootHasIdArray = (root: any, idPath: string): boolean =>
+  has(root, idPath) && isArray(get(root, idPath));
 
 /**
  * Get document data and add its id
@@ -64,13 +82,17 @@ export const fetch = async (
   args: any,
   idPath = collectionName
 ): Promise<FirebaseFirestore.DocumentData[]> => {
+  let collectionPath = collectionName;
+
   if (root) {
-    isReverseSearch(idPath)
-      ? set(args, `*${idPath}`, get(root, "id"))
-      : set(args, "*id", get(root, idPath));
+    if (rootHasIdArray(root, idPath)) {
+      set(args, `*id`, get(root, idPath));
+    } else {
+      collectionPath = `${root.contentType}/${root.id}/${collectionName}`;
+    }
   }
 
-  return firestore.fetch(collectionName, args);
+  return firestore.fetch(collectionPath, args);
 };
 
 /**
