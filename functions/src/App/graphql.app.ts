@@ -1,5 +1,6 @@
 // @format
 import * as express from "express";
+import * as cors from "cors";
 import * as graphqlHTTP from "express-graphql";
 import { GraphQLSchema, GraphQLObjectType } from "graphql";
 import { values } from "lodash";
@@ -10,6 +11,8 @@ import { retrieve } from "../Types/registry";
 
 const app = express();
 
+app.use(cors());
+
 const QueryType = new GraphQLObjectType({
   name: "Query",
   fields: retrieve("root")
@@ -17,7 +20,11 @@ const QueryType = new GraphQLObjectType({
 
 const MutationType = new GraphQLObjectType({
   name: "Mutation",
-  fields: { ...retrieve("setters"), ...retrieve("deleters") }
+  fields: {
+    ...retrieve("setters"),
+    ...retrieve("deleters"),
+    ...retrieve("updaters")
+  }
 });
 
 const schema = new GraphQLSchema({

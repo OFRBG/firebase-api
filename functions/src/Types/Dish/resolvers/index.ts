@@ -1,11 +1,15 @@
 // @format
-import { GraphQLList, GraphQLID, GraphQLInt } from "graphql";
+import { GraphQLList, GraphQLID, GraphQLInt, GraphQLNonNull } from "graphql";
 
 import { model as type } from "../type";
 import { args as getterArgs } from "../fields";
-import { DishInput as inputType } from "../inputTypes";
+import {
+  DishInput as inputType,
+  DishUpdateInput as updateType
+} from "../inputTypes";
 
 import { setDish as setterResolve } from "./resolvers";
+import { updateDish as updaterResolve } from "./resolvers";
 import { getDish as getterResolve } from "./resolvers";
 import { removeDish as deleterResolve } from "./resolvers";
 
@@ -15,9 +19,18 @@ const setterArgs = {
   }
 };
 
+const updaterArgs = {
+  id: {
+    type: GraphQLNonNull(GraphQLID)
+  },
+  inputObject: {
+    type: updateType
+  }
+};
+
 const deleterArgs = {
   ids: {
-    type: GraphQLList(GraphQLID)
+    type: GraphQLList(GraphQLNonNull(GraphQLID))
   }
 };
 
@@ -31,6 +44,12 @@ export const setter = {
   type: type,
   args: setterArgs,
   resolve: setterResolve
+};
+
+export const updater = {
+  type: type,
+  args: updaterArgs,
+  resolve: updaterResolve
 };
 
 export const deleter = {

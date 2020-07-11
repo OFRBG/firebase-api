@@ -18,6 +18,8 @@
     "npm": "6"
   },
   "dependencies": {
+    "@types/cors": "^2.8.6",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-graphql": "^0.8.0",
     "firebase": "^7.15.0",

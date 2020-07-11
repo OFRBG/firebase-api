@@ -39,6 +39,7 @@ const fieldTypeToYup = (field: Field): yup.MixedSchema => {
   let schemaField = get(fieldGenerator(field.collection), baseType, yup.mixed);
 
   schemaField = isArray ? yup.array(schemaField()) : schemaField();
+
   schemaField = field.useSubcollection
     ? schemaField.transform((value: any[]) =>
         set(clone(value), "collection", field.collection)
@@ -52,7 +53,8 @@ const fieldTypeToYup = (field: Field): yup.MixedSchema => {
   });
 };
 
-export const fieldsToYup = (fields: { [key: string]: ExportField }) =>
-  mapValues(fields, field =>
+export const fieldsToYup = (fields: { [key: string]: ExportField }) => {
+  return mapValues(fields, field =>
     fieldTypeToYup(isFunction(field) ? field() : field)
   );
+};

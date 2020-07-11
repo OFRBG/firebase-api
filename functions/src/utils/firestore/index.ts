@@ -8,7 +8,7 @@ import { getQueryParams, applyConnectionArgs } from "./helpers";
 const FETCH_LIMIT = 20;
 
 const partitionSubcollectionFields = (args: any) =>
-  partition(toPairs(args), ([, arg]) => has(arg, "useSubcollection"));
+  partition(toPairs(args), ([, arg]) => has(arg, "collection"));
 
 const handleSubcollections = (
   docRef: FirebaseFirestore.DocumentReference
@@ -97,10 +97,25 @@ export const add = async (collection: string, args: any) => {
 
 export const update = async (collection: string, id: string, args: any) => {
   const db = admin.firestore().collection(collection);
+  const group = admin.firestore().collectionGroup(collection);
+
   const [subcollectionFields, fields] = partitionSubcollectionFields(args);
 
   const docRef = db.doc(id);
   await docRef.set(fromPairs(fields), { merge: true });
+
+  const relatedUpdates: any[] = [];
+
+  group
+    .where("id", "==", id)
+    .get()
+    .then(docs => {
+      docs.forEach(doc => {
+        relatedUpdates.push(doc.ref.set(fromPairs(fields), { merge: true }));
+      });
+    });
+
+  await Promise.all(relatedUpdates);
 
   try {
     await Promise.all(subcollectionFields.map(handleSubcollections(docRef)));

@@ -1,11 +1,19 @@
 // @format
 import {GraphQLInputObjectType} from 'graphql';
 
+import {resolveLazy, makeUpdateFields} from "../../../utils";
 import {writable} from '../fields';
 
 /* Define the type for the GraphQL creation mutation */
 export const {{ properCase name }}Input = new GraphQLInputObjectType({
   name: '{{ properCase name }}Input',
   description: 'New {{ lowerCase name }} mutation input',
-  fields: () => writable,
+  fields: () => resolveLazy(writable),
+});
+
+/* Define the type for the GraphQL update mutation */
+export const {{ properCase name }}UpdateInput = new GraphQLInputObjectType({
+  name: '{{ properCase name }}UpdateInput',
+  description: 'Update {{ lowerCase name }} mutation input',
+  fields: () => makeUpdateFields(resolveLazy(writable))
 });

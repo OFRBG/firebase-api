@@ -7,17 +7,6 @@ import {retrieveType} from '../../../Types/registry';
 
 const /* OtherType */ = retrieveType(/* otherType */);
 
-/**
- * Add this field to OtherType and
- * add a reverse reference to the dependency field by using
- * either .getter('-dependency') or .connection('-dependency').
- * The field needs to be lazy evaluated so that the registry is
- * populated.
-
-const {{ collectionName }} = () => retrieveType('{{ name }}').connection('-dependency'),
-
- */
-
 {{/if}}
 /* Every item should have an ID */
 const id = {

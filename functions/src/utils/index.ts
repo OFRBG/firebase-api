@@ -7,7 +7,10 @@ import {
   isFunction,
   mapValues,
   has,
-  isArray
+  isArray,
+  transform,
+  clone,
+  cloneDeep
 } from "lodash";
 import { ObjectSchema } from "yup";
 
@@ -26,12 +29,20 @@ export const resolveLazy = <T>(values: { [key: string]: T | (() => T) }) =>
   mapValues(values, value => (isFunction(value) ? value() : value));
 
 /**
- * Check if the parameter is a reverse relation
+ * Transform write fields into update fields
  *
- * @param {string} path
- * @returns {boolean}
+ * @param {any} fields Object of fields
  */
-const isReverseSearch = (path: string) => path[0] === "-";
+export const makeUpdateFields = (fields: any) =>
+  transform(cloneDeep(fields), (result: any, value: any, key: string) => {
+    if (value.collection) {
+      const copied = clone(value);
+      result[`${key}Add`] = copied;
+      result[`${key}Remove`] = copied;
+    } else {
+      result[key] = value;
+    }
+  });
 
 /**
  * Check if the root object has an array at the given path
