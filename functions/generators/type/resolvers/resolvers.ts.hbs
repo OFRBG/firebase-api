@@ -15,7 +15,7 @@ export const get{{ properCase name }} = (idPath = collectionName) =>
  * Set the data for {{ properCase name }} to a new doc
  */
 export const set{{ properCase name }} = async (root: any, args: any, context: any) =>
-  add(collectionName, schema, root, args);
+  add(collectionName, root, args, schema);
 
 /**
  * Update data for {{ properCase name }} with a specific ID
