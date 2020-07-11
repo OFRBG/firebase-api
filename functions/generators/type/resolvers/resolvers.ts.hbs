@@ -20,7 +20,7 @@ export const set{{ properCase name }} = async (root: any, args: any, context: an
 /**
  * Update data for {{ properCase name }} with a specific ID
  */
-export const updateDish = async (root: any, args: any, context: any) =>
+ export const update{{ properCase name }}= async (root: any, args: any, context: any) =>
   update(collectionName, root, args, args.id, schema);
 
 /**
