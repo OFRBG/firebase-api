@@ -10,7 +10,9 @@ import {
   isArray,
   transform,
   clone,
-  cloneDeep
+  cloneDeep,
+  isString,
+  isNil
 } from "lodash";
 import { ObjectSchema } from "yup";
 
@@ -43,15 +45,6 @@ export const makeUpdateFields = (fields: any) =>
       result[key] = value;
     }
   });
-
-/**
- * Check if the root object has an array at the given path
- *
- * @param {Object} root GraphQL root object to check
- * @param {String} idPath Path of the array with IDs
- */
-const rootHasIdArray = (root: any, idPath: string): boolean =>
-  has(root, idPath) && isArray(get(root, idPath));
 
 /**
  * Get document data and add its id
@@ -92,14 +85,20 @@ export const fetch = async (
   root: any,
   args: any,
   idPath = collectionName
-): Promise<FirebaseFirestore.DocumentData[]> => {
+): Promise<
+  FirebaseFirestore.DocumentData[] | FirebaseFirestore.DocumentData | undefined
+> => {
   let collectionPath = collectionName;
 
-  if (root) {
-    if (rootHasIdArray(root, idPath)) {
-      set(args, `*id`, get(root, idPath));
-    } else {
+  if (!isNil(root)) {
+    if (!has(root, idPath)) {
       collectionPath = `${root.contentType}/${root.id}/${collectionName}`;
+    } else {
+      const relatedIdField = get(root, idPath);
+
+      if (isArray(relatedIdField)) set(args, `*id`, relatedIdField);
+      else if (isString(relatedIdField)) set(args, `id`, relatedIdField);
+      else throw new Error("ID field has an unsupported type");
     }
   }
 

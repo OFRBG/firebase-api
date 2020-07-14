@@ -13,7 +13,11 @@ export const connection = (path = "users") => ({
   description: "Dish connection",
   args: merge({}, args, connectionArgs),
   resolve: async (root: any, args: any) => {
-    const nodes = await getter(path)(root, args, null);
+    const nodes = (await getter(path)(
+      root,
+      args,
+      null
+    )) as FirebaseFirestore.DocumentData[];
 
     return buildRelayConnection(nodes);
   }

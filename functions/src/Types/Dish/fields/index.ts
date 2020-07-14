@@ -33,7 +33,7 @@ const ingredients = {
     collection: Ingredient.collectionName,
     useSubcollection: true
   },
-  read: Ingredient.connection("ingredients")
+  read: Ingredient.getter("ingredients")
 };
 
 export const writable = {

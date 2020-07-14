@@ -64,6 +64,11 @@ export const applyFilters = (
 export const fetch = async (collection: string, args: any) => {
   const db = admin.firestore().collection(collection);
 
+  if (args.id) {
+    const doc = await db.doc(args.id).get();
+    return doc.data();
+  }
+
   const query = applyFilters(db, args);
   const fetchedData = await query.get();
 
